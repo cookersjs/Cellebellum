@@ -1,0 +1,15 @@
+{
+  "undef": true,
+  "unused": true,
+  "predef": [ "MY_GLOBAL" ],
+  "globals": {
+    "describe"  : false,
+    "it"        : false,
+    "before"    : false,
+    "beforeEach": true,
+    "after"     : false,
+    "afterEach" : false,
+    "cy"        : false,
+    "Cypress"   : false
+  }
+}

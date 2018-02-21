@@ -1,0 +1,42 @@
+# General
+/node_modules
+/.*
+!/.gitignore
+!/.jshintrc
+!/.csslintrc
+coffeelint.json
+Makefile
+dump/
+
+# Configuration
+config.json
+config/back-end/*.json
+!config/back-end/testing.json
+
+# Testing
+src/tests.webpack.js.map
+coverage
+test-results.xml
+cypress/support
+cypress/videos
+cypress/screenshots
+
+# Distribution
+/dist/build/*_production
+/dist/config.json
+playbook.retry
+
+# Security
+rsa_id*
+
+# Logs/Errors
+.DS_Store
+npm-debug.log
+/etc/scripts/*.log
+/etc/scripts/*.err
+
+# Other
+/target
+/*.sublime-*
+MYMETA.*
+/build_data_local.yml

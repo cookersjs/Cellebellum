@@ -1,0 +1,295 @@
+/* Copyright 2014(c) The Ontario Institute for Cancer Research. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the terms of the GNU Public
+ * License v3.0. You should have received a copy of the GNU General Public License along with this
+ * program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+body {
+  padding: 50px;
+  padding-bottom: 0px;
+  overflow-wrap: break-word;
+}
+
+.inline-list .inline-item:after {
+  content: ", ";
+}
+.inline-list .inline-item:last-child:after {
+  content: "";
+}
+
+a[rel="external"], .external {
+    &:after {
+        content: "\e066";
+        font-size: 80%;
+        padding-left: 2px;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+.sidebar {
+  padding-top: 2em;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 6.5%;
+}
+
+.nav-list.nav > li > a {
+  padding: 3px 15px;
+}
+
+.nav-header {
+  font-weight: bold;
+}
+
+ol.references {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ol.references li:before {
+  content: "[" counter(section) "] ";
+}
+
+ol.references li {
+  counter-increment: section;
+}
+
+.reference {
+    padding-left: 22px ;
+    text-indent: -22px ;
+}
+
+.ui-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  _width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+
+  .ui-menu-item {
+      padding: 3px;
+      &:hover {
+        font-weight: bold;
+      }
+  }
+
+  .ui-menu-item > a.ui-corner-all {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+
+    &.ui-state-hover, &.ui-state-active {
+      color: #ffffff;
+      text-decoration: none;
+      background-color: #0088cc;
+      border-radius: 0px;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+    }
+  }
+}
+
+.ui-helper-hidden-accessible {
+  position: absolute; left: -9999px;
+}
+
+.glyphicon-minus-sign {
+  color:red
+}
+
+.glyphicon-plus-sign {
+  color:blue
+}
+
+.custom-list-item:hover {
+  background-color:#f7f7f9;
+}
+#stripe{
+  width:100%;
+  background-color:#310040;
+  min-height: 400px;
+}
+#box-title{
+  color:#F8F8F8;
+  font-size:20px;
+  text-align:center;
+  font-family:Optima;
+  text-decoration:underline;
+  padding-top:15px;
+}
+#square{
+  width:100px;
+  height:100px;
+  background:#C078ED;
+  border-radius:25px;
+  padding:20px;
+  cursor: pointer;
+}
+#box-text{
+  cursor: pointer;
+  font-family:Optima;
+  min-width:140px;
+  color:white;
+  font-size:16px;
+  padding-top:7px;
+}
+.footer-text{
+  font-size:20px;
+  font-family:Helvetica Neue;
+}
+a.text-hover{
+  color: white;
+}
+a.text-hover:hover{
+  color: pink;
+  text-decoration: none;
+}
+.border:hover{
+  box-shadow: 0 0 0 3pt white;
+  transition: all 0.0s ease;
+}
+.grow:hover{
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  transition:all 0.15s ease;
+}
+.no-side-padding {
+  padding-left:0px;
+  padding-right:0px;
+}
+.footer {
+  display:inline-block;
+  font-family:Helvetica Neue;
+  position:absolute;
+  right:10px;
+  bottom:0px;
+}
+.searchQueryParam {
+  font-style: italic;
+  color:#616161;
+}
+
+.searchQueryLabel {
+  color:#a700d9;
+}
+
+.redBorder > input {
+  border: 2px solid red !important;
+}
+
+tooltip tip {
+  width:200px !important;
+}
+
+.submission-tab-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom:  1px solid #ddd;
+  padding: 10px;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.job-passed {
+  color: #4CAF50;
+}
+
+.job-failed {
+  color: #F44336;
+}
+
+.job-pending {
+  color: #FFC107;
+}
+
+.top-margin {
+  margin-top: 15px;
+}
+
+.bottom-margin {
+  margin-bottom: 15px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.job-state {
+  font-size:14px;
+}
+
+.file-upload-success {
+  background-color: #4CAF50;
+}
+
+.file-upload-failure {
+  background-color: #F44336;
+}
+
+.collapse-panel-header:before {
+  font-family: FontAwesome;
+  content: "\f068";
+}
+
+.collapse-panel-header.collapsed:before {
+  content: "\f067";
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1400px;
+  }
+}
+
+.custom-modal {
+   top: 30%;
+   transform: translateY(-30%);
+}
+
+.no-side-margin {
+  margin-left:0px;
+  margin-right:0px;
+}
