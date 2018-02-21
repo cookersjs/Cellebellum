@@ -72,7 +72,7 @@ Queries Mongo and gets the matching gene data back, if any.
               cellTypes = []
               expressionValues = []
               data = result.data
-              for item in result.data
+              for item in result.data.p0
                 keys = Object.keys(item)
                 key = keys[0];
                 cellTypes.push(key)
