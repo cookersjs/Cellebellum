@@ -9,12 +9,23 @@
           <div>
             <input style="height:50px;width:300px;font-size:20pt;padding-left:15px;" placeholder="Type a Gene" ng-model="gene"></input>
           </div>
+          <div style="padding-top:10px">
+            <p style="font-size:20px;color:#606060;"><b>Select Time Points:</b></p>
+          </div>
           <div>
-            <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Enter</button>
+            <div style="display:inline;position:relative;right:5%;" >
+              <input type="checkbox" value="p0"><span style="font-size:16px;margin:5px"><b>p0</b></span>
+            </div>
+            <div style="display:inline;position:relative;left:5%">
+              <input type="checkbox" value="p7"><span style="font-size:16px;margin:5px"><b>p7</b></span>
+            </div>
+          </div>
+          <div>
+            <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Submit</button>
           </div>
           <br><br><br>
         </div>
-        <div style="position:relative;top:200px;left:25px;" cellebellum-expression-chart></div>
+        <div style="position:relative;top:300px;left:25px;" cellebellum-expression-chart></div>
       </div>
     </div>
   </div>
