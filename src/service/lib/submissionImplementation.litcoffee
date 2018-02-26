@@ -62,23 +62,29 @@ Queries Mongo and gets the matching gene data back, if any.
 
     module.exports.queryMongo = (req, res) ->
       gene = req.body.gene
+      timepoints = req.body.timepoints
       MongoClient.connect mongoUrl, (err, db) ->
         db.collection 'cellebellum', (err, cellebellum) ->
           cellebellum.findOne {geneSymbol: gene}, (err, result) ->
             if err
               res.status(404).send
             else
-              expressionData = {}
-              cellTypes = []
-              expressionValues = []
-              data = result.data
-              for item in result.data.p0
-                keys = Object.keys(item)
-                key = keys[0];
-                cellTypes.push(key)
-                expressionValues.push(item[key])
-              expressionData['cellTypes'] = cellTypes
-              expressionData['data'] = expressionValues
-              expressionData['gene'] = gene
-              res.status(200).send data: expressionData
+              expressionTimes = []
+              for time in timepoints
+                expressionData = {}
+                cellTypes = []
+                expressionValues = []
+                data = result.data[time]
+                for item in data
+                  keys = Object.keys(item)
+                  key = keys[0];
+                  cellTypes.push(key)
+                  expressionValues.push(item[key])
+                expressionData['timePoint'] = time
+                expressionData['gene'] = gene
+                expressionData['cellTypes'] = cellTypes
+                expressionData['data'] = expressionValues
+                expressionTimes.push(expressionData)
+              console.log(expressionTimes)
+              res.status(200).send data: expressionTimes
             db.close()

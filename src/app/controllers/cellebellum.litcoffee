@@ -28,7 +28,18 @@
 
       .controller 'CellebellumController', Array '$scope', '$http', '$timeout', 'Restangular', '$sce', ($scope, $http, $timeout, Restangular, $sce) ->
 
+        $scope.timepoints = [
+          { name:'p0', selected: false }
+          { name:'p7', selected: false }
+        ]
+
         $scope.submitGene = () ->
-          Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene)
+
+          timepoints = []
+          for time in $scope.timepoints
+            if time.selected == true
+              timepoints.push(time.name)
+
+          Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
             $scope.expression = expressions

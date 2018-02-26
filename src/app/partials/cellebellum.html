@@ -13,12 +13,9 @@
             <p style="font-size:20px;color:#606060;"><b>Select Time Points:</b></p>
           </div>
           <div>
-            <div style="display:inline;position:relative;right:5%;" >
-              <input type="checkbox" value="p0"><span style="font-size:16px;margin:5px"><b>p0</b></span>
-            </div>
-            <div style="display:inline;position:relative;left:5%">
-              <input type="checkbox" value="p7"><span style="font-size:16px;margin:5px"><b>p7</b></span>
-            </div>
+            <label ng-repeat="timepoint in timepoints">
+              <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
+            </label>
           </div>
           <div>
             <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Submit</button>
