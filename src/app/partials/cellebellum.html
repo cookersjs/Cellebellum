@@ -9,20 +9,40 @@
           <div>
             <input style="height:50px;width:300px;font-size:20pt;padding-left:15px;" placeholder="Type a Gene" ng-model="gene"></input>
           </div>
-          <div style="padding-top:10px">
-            <p style="font-size:20px;color:#606060;"><b>Select Time Points:</b></p>
-          </div>
+          <br>
           <div>
-            <label ng-repeat="timepoint in timepoints">
-              <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
-            </label>
+            <select ng-model="selectedMethod" ng-options="method.type for method in methods"></select>
           </div>
-          <div>
-            <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Submit</button>
+
+          <div ng-show="selectedMethod.value=='0'">
+            <div style="padding-top:10px">
+              <p style="font-size:20px;color:#606060;"><b>Select Time Points:</b></p>
+            </div>
+            <div>
+              <label ng-repeat="timepoint in timepoints">
+                <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
+              </label>
+            </div>
+            <div>
+              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Submit</button>
+            </div>
+            <br><br><br>
           </div>
-          <br><br><br>
+          <div ng-show="selectedMethod.value=='1'">
+            <div style="padding-top:10px;text-align:left;">
+              <div style="text-align:center">
+                <p style="font-size:20px;color:#606060;"><b>Select Cell Type:</b></p>
+              </div>
+              <label style="display:block;position:relative;left:60px;" ng-repeat="celltype in celltypes">
+                <input style="float:left;margin-right:20px;" type="radio" ng-model="selectedCelltype" value="{{celltype.name}}"> {{celltype.name}}
+              </label>
+            </div>
+            <div>
+              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Submit</button>
+            </div>
+          </div>
         </div>
-        <div style="position:relative;top:300px;left:25px;" cellebellum-expression-chart></div>
+        <div ng-show="selectedMethod.value=='0'" style="position:relative;top:300px;left:25px;" cellebellum-expression-chart></div>
       </div>
     </div>
   </div>

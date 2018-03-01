@@ -28,9 +28,24 @@
 
       .controller 'CellebellumController', Array '$scope', '$http', '$timeout', 'Restangular', '$sce', ($scope, $http, $timeout, Restangular, $sce) ->
 
+        $scope.methods =  [
+          { type:"All Cell Types, Different Timepoints", value:"0" }
+          { type:"Single Cell Type, Expression over Time", value:"1" }
+        ]
         $scope.timepoints = [
           { name:'p0', selected: false }
           { name:'p7', selected: false }
+        ]
+        $scope.celltypes = [
+          { name:'NSCs', selected: false }
+          { name:'GABAergic Neurons', selected: false }
+          { name:'DCN Precursors', selected: false }
+          { name:'UBCs', selected: false }
+          { name:'Meninges', selected: false }
+          { name:'OPCs', selected: false }
+          { name:'Endothelial Cells', selected: false }
+          { name:'Pericytes', selected: false }
+          { name:'Microglia', selected: false }
         ]
 
         $scope.submitGene = () ->
@@ -39,6 +54,12 @@
           for time in $scope.timepoints
             if time.selected == true
               timepoints.push(time.name)
+
+          # cell = []
+          # for celltype in $scope.celltypes
+          #   console.log celltype
+            # if celltype.selected == true
+            #   console.log celltype.name
 
           Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
