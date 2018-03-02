@@ -48,8 +48,9 @@
           { name:'Microglia', selected: false }
         ]
 
-        $scope.submitGene = () ->
+        $scope.selectCelltype = (value) -> $scope.celltype = value
 
+        $scope.submitGene = () ->
           timepoints = []
           for time in $scope.timepoints
             if time.selected == true

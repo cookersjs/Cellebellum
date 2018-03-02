@@ -34,7 +34,7 @@
                 <p style="font-size:20px;color:#606060;"><b>Select Cell Type:</b></p>
               </div>
               <label style="display:block;position:relative;left:60px;" ng-repeat="celltype in celltypes">
-                <input style="float:left;margin-right:20px;" type="radio" ng-model="selectedCelltype" value="{{celltype.name}}"> {{celltype.name}}
+                <input style="float:left;margin-right:20px;" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
               </label>
             </div>
             <div>
