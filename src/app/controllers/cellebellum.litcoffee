@@ -56,12 +56,20 @@
             if time.selected == true
               timepoints.push(time.name)
 
-          # cell = []
-          # for celltype in $scope.celltypes
-          #   console.log celltype
-            # if celltype.selected == true
-            #   console.log celltype.name
-
           Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
-            $scope.expression = expressions
+            # $scope.expression = expressions
+
+            $scope.getp0 = () ->
+              if ($scope.timepoints[0].selected == true)
+                for data in expressions.data.data
+                  if data.timePoint == 'p0'
+                    $scope.expression = data
+                return true
+
+            $scope.getp7 = () ->
+              if ($scope.timepoints[1].selected == true)
+                for data in expressions.data.data
+                  if data.timePoint == 'p7'
+                    $scope.expression = data
+                return true

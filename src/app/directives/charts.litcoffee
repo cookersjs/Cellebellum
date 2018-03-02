@@ -35,67 +35,66 @@
         replace: true
         transclude: true
         scope: false
-        template: '<svg width="1250" height="500">'
+        template: '<svg width="1250" height="400">'
         link: (scope, iElement, iAttrs) ->
-          scope.$watch 'expression.data', (expressions) ->
-            if expressions
-              for expression in expressions.data
-                names = expression['cellTypes']
-                values = expression['data']
-                gene = expression['gene']
-                timepoint = expression['timePoint']
+          scope.$watch 'expression', (expression) ->
+            if expression
+              names = expression['cellTypes']
+              values = expression['data']
+              gene = expression['gene']
+              timepoint = expression['timePoint']
 
-                display = jQuery(iElement)
-                element = display.get()[0]
+              display = jQuery(iElement)
+              element = display.get()[0]
 
-                # colour = d3.scaleOrdinal(d3.schemeCategory20)
+              # colour = d3.scaleOrdinal(d3.schemeCategory20)
 
-                svg = d3.select(element)
-                margin = 200
-                width = svg.attr("width") - margin
-                height = svg.attr("height") - margin
+              svg = d3.select(element)
+              margin = 200
+              width = svg.attr("width") - margin
+              height = svg.attr("height") - margin
 
-                svg.append('text')
-                  .attr('transform', 'translate(100, 0)')
-                  .attr('x', 350)
-                  .attr('y', 50)
-                  .attr('font-size', '24px')
-                  .attr('font-weight', 'bold')
-                  # .text(gene + ' Expression: ' + timepoint)
+              svg.append('text')
+                .attr('transform', 'translate(100, 0)')
+                .attr('x', 350)
+                .attr('y', 80)
+                .attr('font-size', '24px')
+                .attr('font-weight', 'bold')
+                .text(gene + ' Expression: ' + timepoint)
 
-                xScale = d3.scaleBand()
-                  .range([0, width - 180])
-                  .padding(0.4)
+              xScale = d3.scaleBand()
+                .range([0, width - 180])
+                .padding(0.4)
 
-                yScale = d3.scaleLinear()
-                  .range([height, 0])
+              yScale = d3.scaleLinear()
+                .range([height, 0])
 
-                g = svg.append('g')
-                  .attr('transform', 'translate(' + 100 + ',' + 100 + ')')
+              g = svg.append('g')
+                .attr('transform', 'translate(' + 100 + ',' + 100 + ')')
 
-                xScale.domain names.map((d) -> d)
-                yScale.domain [ 0, d3.max(values, (d) -> d + 6)]
+              xScale.domain names.map((d) -> d)
+              yScale.domain [ 0, d3.max(values, (d) -> d + 6)]
 
-                g.append('g')
-                  .attr('transform', 'translate(0,' + height + ')')
-                  .call(d3.axisBottom(xScale))
+              g.append('g')
+                .attr('transform', 'translate(0,' + height + ')')
+                .call(d3.axisBottom(xScale))
 
 
-                g.append('g')
-                  .call d3.axisLeft(yScale).tickFormat((d) ->
-                   d
-                  ).ticks(10)
-                  .append('text')
-                  .attr('y', 6)
-                  .attr('dy', '0.71em')
-                  .attr('text-anchor', 'end')
-                  .text('value')
+              g.append('g')
+                .call d3.axisLeft(yScale).tickFormat((d) ->
+                 d
+                ).ticks(10)
+                .append('text')
+                .attr('y', 6)
+                .attr('dy', '0.71em')
+                .attr('text-anchor', 'end')
+                .text('value')
 
-                g.selectAll("rect")
-                  .data(values)
-                  .enter().append("rect")
-                    .attr("class", "bar")
-                    .attr("height", (d, i) -> height - yScale(d))
-                    .attr("width", "30")
-                    .attr("x", (d, i) -> i * 60 + 30)
-                    .attr("y", (d) -> yScale(d))
+              g.selectAll("rect")
+                .data(values)
+                .enter().append("rect")
+                  .attr("class", "bar")
+                  .attr("height", (d, i) -> height - yScale(d))
+                  .attr("width", "30")
+                  .attr("x", (d, i) -> i * 60 + 30)
+                  .attr("y", (d) -> yScale(d))
