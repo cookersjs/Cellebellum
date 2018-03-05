@@ -48,9 +48,11 @@
           { name:'Microglia', selected: false }
         ]
 
-        $scope.selectCelltype = (value) -> $scope.celltype = value
+        $scope.selectCelltype = (value) ->
+          $scope.celltype = value
 
-        $scope.submitGene = () ->
+        $scope.submitAllCells = () ->
+
           timepoints = []
           for time in $scope.timepoints
             if time.selected == true
@@ -73,3 +75,29 @@
                   if data.timePoint == 'p7'
                     $scope.expression = data
                 return true
+
+
+        $scope.submitCellTimes = () ->
+
+          timepoints = ['p0','p7']
+
+          Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
+          .then (expressions) ->
+
+            cellExpressions = {}
+            cellExpressions['data'] = []
+            for data in expressions.data.data
+              cellExpressions['gene'] = data.gene
+              cellExpressions['cellType'] = $scope.celltype
+              cell_count = 0
+              for cell in data.cellTypes
+                if cell == $scope.celltype
+                  cellType = {}
+                  cellType['y'] = Number(data.data[cell_count])
+                  # cellType['time'] = data.timePoint
+                  cellExpressions.data.push(cellType)
+                cell_count++
+
+            $scope.getCells = () ->
+              $scope.cellExpressions = cellExpressions
+              return true

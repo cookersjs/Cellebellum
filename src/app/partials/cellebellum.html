@@ -24,7 +24,7 @@
               </label>
             </div>
             <div>
-              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Submit</button>
+              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitAllCells()">Submit</button>
             </div>
             <br><br><br>
           </div>
@@ -38,12 +38,13 @@
               </label>
             </div>
             <div>
-              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Submit</button>
+              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitCellTimes()">Submit</button>
             </div>
           </div>
         </div>
         <div ng-show="getp0()" style="position:relative;top:300px;left:25px;" cellebellum-expression-chart></div>
         <div ng-show="getp7()" style="position:relative;top:300px;left:25px;" cellebellum-expression-chart></div>
+        <div ng-show="getCells()" style="position:relative;left:25px;" cellebellum-celltype-chart></div>
       </div>
     </div>
   </div>
