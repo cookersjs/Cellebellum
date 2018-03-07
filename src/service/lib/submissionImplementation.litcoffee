@@ -51,23 +51,20 @@ Local Functions:
 
 Configure a new client
 
-    vepUrl = config.vep
-    circosUrl = config.circos
-    delegatorUrl = config.delegator
     mongoUrl = config.data.cellebellum.store.url
-
-    sharedVolume = '/data/cellebellumData/'
 
 Queries Mongo and gets the matching gene data back, if any.
 
     module.exports.queryMongo = (req, res) ->
       gene = req.body.gene
+      gene = gene.toLowerCase()
+      gene = gene.charAt(0).toUpperCase() + gene.slice(1)
       timepoints = req.body.timepoints
       MongoClient.connect mongoUrl, (err, db) ->
         db.collection 'cellebellum', (err, cellebellum) ->
           cellebellum.findOne {geneSymbol: gene}, (err, result) ->
-            if err
-              res.status(404).send
+            if result == null
+              res.status(404).send 
             else
               expressionTimes = []
               for time in timepoints

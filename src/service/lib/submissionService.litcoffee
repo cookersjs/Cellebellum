@@ -70,6 +70,3 @@ A log message to show that the submission service has been started.
 Finally, return the router for embedding in the application.
 
     module.exports = router
-
-    testFunction = () ->
-      console.log "test function!"

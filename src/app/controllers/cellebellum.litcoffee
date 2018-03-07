@@ -60,8 +60,6 @@
 
           Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
-            # $scope.expression = expressions
-
             $scope.getp0 = () ->
               if ($scope.timepoints[0].selected == true)
                 for data in expressions.data.data
