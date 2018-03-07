@@ -1,13 +1,12 @@
 <div class="container">
   <div class="row-fluid">
     <div class="tab-content">
-      <div class="tab-pane active" id="gene-frequencies-tab" style="text-align:center;">
+      <div class="tab-pane active" style="text-align:center;">
 
-        <div class="row-fluid">
-        </div>
-        <div id="input" style="position:absolute;top:15%;left:40%;">
+        <div class="row-fluid"></div>
+        <div id="initial">
           <div>
-            <input style="height:50px;width:300px;font-size:20pt;padding-left:15px;" placeholder="Type a Gene" ng-model="gene"></input>
+            <input id="geneForm" placeholder="Type a Gene" ng-model="gene"></input>
           </div>
           <br>
           <div>
@@ -15,36 +14,34 @@
           </div>
 
           <div ng-show="selectedMethod.value=='0'">
-            <div style="padding-top:10px">
-              <p style="font-size:20px;color:#606060;"><b>Select Time Points:</b></p>
-            </div>
+            <p id="instructions"><b>Select Time Points:</b></p>
             <div>
               <label ng-repeat="timepoint in timepoints">
                 <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
               </label>
             </div>
             <div>
-              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitAllCells()">Submit</button>
+              <button id="submit" ng-click="submitAllCells()">Submit</button>
             </div>
             <br><br><br>
           </div>
           <div ng-show="selectedMethod.value=='1'">
-            <div style="padding-top:10px;text-align:left;">
+            <div style="text-align:left;">
               <div style="text-align:center">
-                <p style="font-size:20px;color:#606060;"><b>Select Cell Type:</b></p>
+                <p id="instructions"><b>Select Cell Type:</b></p>
               </div>
-              <label style="display:block;position:relative;left:60px;" ng-repeat="celltype in celltypes">
-                <input style="float:left;margin-right:20px;" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
+              <label id="celltypesList" ng-repeat="celltype in celltypes">
+                <input id="celltypesRadio" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
               </label>
             </div>
             <div>
-              <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitCellTimes()">Submit</button>
+              <button id="submit" ng-click="submitCellTimes()">Submit</button>
             </div>
           </div>
         </div>
-        <div ng-show="getp0()" style="position:relative;top:300px;left:25px;" cellebellum-expression-chart></div>
-        <div ng-show="getp7()" style="position:relative;top:300px;left:25px;" cellebellum-expression-chart></div>
-        <div ng-show="getCells()" style="position:relative;left:25px;" cellebellum-celltype-chart></div>
+        <div ng-show="getp0()" id="expressionChart" cellebellum-expression-chart></div>
+        <div ng-show="getp7()" id="expressionChart" cellebellum-expression-chart></div>
+        <div ng-show="getCells()" id="celltypeChart" cellebellum-celltype-chart></div>
       </div>
     </div>
   </div>

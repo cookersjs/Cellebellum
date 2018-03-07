@@ -41,20 +41,9 @@
               dataset = []
               for element in cellExpressions.data
                 dataset.push(element)
-              # dataset.push( { 'y': 0.00 })
-
-              # console.log data
-                # expressions.push(element.expression)
-                # times.push(element.time)
 
               display = jQuery(iElement)
               element = display.get()[0]
-
-              # svg = d3.select(element)
-              # margin = 200
-              # width = svg.attr("width") - margin
-              # height = svg.attr("height") - margin
-
 
               # svg.append('text')
               #   .attr('transform', 'translate(100, 0)')
@@ -63,7 +52,6 @@
               #   .attr('font-size', '24px')
               #   .attr('font-weight', 'bold')
               #   .text(gene + ' Expression: ' + timepoint)
-
 
               margin =
                 top: 250
@@ -118,79 +106,7 @@
                 xScale i
               ).attr 'cy', (d) ->
                 yScale d.y
-
-
-
-
-              # x = d3.scaleLinear().range([0, width])
-              # y = d3.scaleLinear().range([height, 0])
-              #
-              # valueline = d3.line().x((d) ->
-              #   console.log d
-              #   x d.time
-              # ).y((d) ->
-              #   y d.expression
-              # )
-              #
-              # svg.append("path")
-              #   .data([cellExpressions.data])
-              #   .attr("class", "line")
-              #   .attr("d", valueline)
-
-
-
-
-              # svg.append("g")
-              #   .attr("transform", "translate(0," + height + ")")
-              #   .call(d3.axisBottom(x))
-              #
-              # svg.append("g")
-              #   .call(d3.axisLeft(y))
-
-
-              # xScale = d3.scaleBand()
-              #   .range([0, width - 180])
-              #   .padding(0.4)
-              #
-              # yScale = d3.scaleLinear()
-              #   .range([height, 0])
-              #
-              # g = svg.append('g')
-              #   .attr('transform', 'translate(' + 100 + ',' + 100 + ')')
-              #
-              # xScale.domain times.map((d) -> d)
-              # yScale.domain [ 0, d3.max(expressions, (d) -> d + 6)]
-              #
-              # g.append('g')
-              #   .attr('transform', 'translate(0,' + height + ')')
-              #   .call(d3.axisBottom(xScale))
-              #
-              #
-              # g.append('g')
-              #   .call d3.axisLeft(yScale).tickFormat((d) ->
-              #    d
-              #   ).ticks(10)
-              #   .append('text')
-              #   .attr('y', 6)
-              #   .attr('dy', '0.71em')
-              #   .attr('text-anchor', 'end')
-              #   .text('value')
-
-              # lineFunc = d3.svg.line()
-              #   .x((d) ->
-              #   xRange d.x
-              # ).y((d) ->
-              #   yRange d.y
-              # ).interpolate('linear')
-
-              # g.selectAll("rect")
-              #   .data(expressions)
-              #   .enter().append("rect")
-              #     .attr("class", "line")
-              #     .attr("height", (d, i) -> height - yScale(d))
-              #     .attr("width", "30")
-              #     .attr("x", (d, i) -> i * 60 + 30)
-              #     .attr("y", (d) -> yScale(d))
+                
 
     .directive 'cellebellumExpressionChart', () ->
       result =
