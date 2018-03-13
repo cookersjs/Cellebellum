@@ -13,7 +13,7 @@
             <select ng-model="selectedMethod" ng-options="method.type for method in methods"></select>
           </div>
 
-          <div ng-show="selectedMethod.value=='0'">
+          <div ng-show="selectedMethod.value=='0'" ng-class="{ 'hidden': showDetails }">
             <p id="instructions"><b>Select Time Points:</b></p>
             <div>
               <label ng-repeat="timepoint in timepoints">
@@ -21,11 +21,12 @@
               </label>
             </div>
             <div>
-              <button id="submit" ng-click="submitAllCells()">Submit</button>
+              <button id="submit" ng-click="submitAllCells();showDetails = !showDetails">Submit</button>
             </div>
             <br><br><br>
           </div>
-          <div ng-show="selectedMethod.value=='1'">
+
+          <div ng-show="selectedMethod.value=='1'" ng-class="{ 'hidden': showElements }">
             <div style="text-align:left;">
               <div style="text-align:center">
                 <p id="instructions"><b>Select Cell Type:</b></p>
@@ -34,14 +35,16 @@
                 <input id="celltypesRadio" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
               </label>
             </div>
+              <div ng-show="getCells()" id="celltypeChart" cellebellum-celltype-chart></div>
+            <div ng-class="{ 'hidden': showElements }">
+            </div>
             <div>
-              <button id="submit" ng-click="submitCellTimes()">Submit</button>
+              <button id="submit" ng-click="submitCellTimes();showElements = !showElements">Submit</button>
             </div>
           </div>
         </div>
-        <div ng-show="getp0()" id="expressionChart" cellebellum-expression-chart></div>
-        <div ng-show="getp7()" id="expressionChart" cellebellum-expression-chart></div>
-        <div ng-show="getCells()" id="celltypeChart" cellebellum-celltype-chart></div>
+        <div ng-show="getp0()" id="expressionChart0" cellebellum-expression-chart></div>
+        <div ng-show="getp7()" id="expressionChart7" cellebellum-expression-chart></div>
       </div>
     </div>
   </div>

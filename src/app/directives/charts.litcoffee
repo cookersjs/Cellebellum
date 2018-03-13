@@ -34,7 +34,7 @@
         replace: true
         transclude: true
         scope: false
-        template: '<svg width="1250" height="400">'
+        template: '<svg id="chart" width="400" height="200">'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'cellExpressions', (cellExpressions) ->
             if cellExpressions
@@ -54,12 +54,12 @@
               #   .text(gene + ' Expression: ' + timepoint)
 
               margin =
-                top: 250
+                top: 200
                 right: 250
-                bottom: 250
-                left: 250
-              width = window.innerWidth - (margin.left) - (margin.right)
-              height = window.innerHeight - (margin.top) - (margin.bottom)
+                bottom: 0
+                left: 500
+              width = 400
+              height = 200
               # Use the window's height
               # The number of datapoints
               n = 2
@@ -69,7 +69,7 @@
                 n - 1
               ]).range([
                 0
-                width
+                400
               ])
               # output
               # 6. Y scale will use the randomly generate number
@@ -77,7 +77,7 @@
                 0
                 1
               ]).range([
-                height
+                200
                 0
               ])
               # output
@@ -106,7 +106,7 @@
                 xScale i
               ).attr 'cy', (d) ->
                 yScale d.y
-                
+
 
     .directive 'cellebellumExpressionChart', () ->
       result =
@@ -114,7 +114,7 @@
         replace: true
         transclude: true
         scope: false
-        template: '<svg width="1250" height="400">'
+        template: '<svg width="1250" height="300">'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'expression', (expression) ->
             if expression
@@ -135,7 +135,7 @@
 
               svg.append('text')
                 .attr('transform', 'translate(100, 0)')
-                .attr('x', 350)
+                .attr('x', 330)
                 .attr('y', 80)
                 .attr('font-size', '24px')
                 .attr('font-weight', 'bold')
