@@ -1,51 +1,49 @@
-<div class="container">
-  <div class="row-fluid">
-    <div class="tab-content">
-      <div class="tab-pane active" style="text-align:center;">
+<div class="container" style="text-align:center;">
 
-        <div class="row-fluid"></div>
-        <div id="initial">
-          <div>
-            <input id="geneForm" placeholder="Type a Gene" ng-model="gene"></input>
-          </div>
-          <br>
-          <div>
-            <select ng-model="selectedMethod" ng-options="method.type for method in methods"></select>
-          </div>
+  <div id="initial">
+    <div>
+      <input id="geneForm" placeholder="Type a Gene" ng-model="gene"></input>
+    </div>
+    <div>
+      <select ng-model="selectedMethod" ng-options="method.type for method in methods"></select>
+    </div>
 
-          <div ng-show="selectedMethod.value=='0'" ng-class="{ 'hidden': showDetails }">
-            <p id="instructions"><b>Select Time Points:</b></p>
-            <div>
-              <label ng-repeat="timepoint in timepoints">
-                <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
-              </label>
-            </div>
-            <div>
-              <button id="submit" ng-click="submitAllCells();showDetails = !showDetails">Submit</button>
-            </div>
-            <br><br><br>
-          </div>
+    <div ng-show="selectedMethod.value=='0'" ng-class="{ 'hidden': showDetails }">
+      <p id="instructions"><b>Select Time Points:</b></p>
+      <div>
+        <label ng-repeat="timepoint in timepoints">
+          <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
+        </label>
+      </div>
+      <div>
+        <button id="submit" ng-click="submitAllCells();showDetails = !showDetails">Submit</button>
+      </div>
+      <br><br><br>
+    </div>
 
-          <div ng-show="selectedMethod.value=='1'" ng-class="{ 'hidden': showElements }">
-            <div style="text-align:left;">
-              <div style="text-align:center">
-                <p id="instructions"><b>Select Cell Type:</b></p>
-              </div>
-              <label id="celltypesList" ng-repeat="celltype in celltypes">
-                <input id="celltypesRadio" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
-              </label>
-            </div>
-              <div ng-show="getCells()" id="celltypeChart" cellebellum-celltype-chart></div>
-            <div ng-class="{ 'hidden': showElements }">
-            </div>
-            <div>
-              <button id="submit" ng-click="submitCellTimes();showElements = !showElements">Submit</button>
-            </div>
-          </div>
+    <div ng-show="selectedMethod.value=='1'" ng-class="{ 'hidden': showElements }">
+      <div style="text-align:left;">
+        <div style="text-align:center">
+          <p id="instructions"><b>Select Cell Type:</b></p>
         </div>
-        <div ng-show="getp0()" id="expressionChart0" cellebellum-expression-chart></div>
-        <div ng-show="getp7()" id="expressionChart7" cellebellum-expression-chart></div>
+        <label id="celltypesList" ng-repeat="celltype in celltypes">
+          <input id="celltypesRadio" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
+        </label>
+      </div>
+      <div ng-class="{ 'hidden': showElements }">
+      </div>
+      <div>
+        <button id="submit" ng-click="submitCellTimes();showElements = !showElements">Submit</button>
       </div>
     </div>
   </div>
+
+  <div id="expressionCharts">
+    <div ng-show="getp0()" cellebellum-expression-chart></div>
+    <div ng-show="getp7()" cellebellum-expression-chart></div>
+  </div>
+
+  <div ng-show="getCells()" cellebellum-celltype-chart></div>
+
+
 </div>

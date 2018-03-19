@@ -34,7 +34,7 @@
         replace: true
         transclude: true
         scope: false
-        template: '<svg id="chart" width="400" height="200">'
+        template: '<svg id="chart" width="600" height="400">'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'cellExpressions', (cellExpressions) ->
             if cellExpressions
@@ -54,10 +54,10 @@
               #   .text(gene + ' Expression: ' + timepoint)
 
               margin =
-                top: 200
-                right: 250
-                bottom: 0
-                left: 500
+                top: 50
+                right: 50
+                bottom: 50
+                left: 50
               width = 400
               height = 200
               # Use the window's height
@@ -91,7 +91,7 @@
               # 8. An array of objects of length N. Each object has key -> value pair, the key being "y" and the value is a random number
 
               # 1. Add the SVG to the page and employ #2
-              svg = d3.select('body').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+              svg = d3.select('#chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
               # # 3. Call the x axis in a group tag
               # svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height + ')').call d3.axisBottom(xScale)
               # # Create an axis component with d3.axisBottom

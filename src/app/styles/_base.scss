@@ -31,6 +31,7 @@ body {
   width:300px;
   font-size:20pt;
   padding-left:15px;
+  margin-bottom:5%;
 }
 
 #instructions {
@@ -60,20 +61,14 @@ body {
   margin-right:20px;
 }
 
-#expressionChart0 {
-  position:relative;
-  top:120px;
-  left:25px;
+#expressionCharts {
+  position:absolute;
+  top:22%;
+  left:5%;
 }
 
-#expressionChart7 {
-  position:relative;
-  top:25px;
-  left:25px;
-}
-
-#celltypeChart {
-  position:relative;
-  bottom:300px;
-  left:200px;
+#chart {
+  position:absolute;
+  top:22%;
+  left:35%;
 }
