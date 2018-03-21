@@ -64,7 +64,7 @@ Queries Mongo and gets the matching gene data back, if any.
         db.collection 'cellebellum', (err, cellebellum) ->
           cellebellum.findOne {geneSymbol: gene}, (err, result) ->
             if result == null
-              res.status(404).send 
+              res.status(404).send
             else
               expressionTimes = []
               for time in timepoints

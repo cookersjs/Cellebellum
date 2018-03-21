@@ -33,6 +33,10 @@
           { type:"Single Cell Type, Expression over Time", value:"1" }
         ]
         $scope.timepoints = [
+          { name:'e12', selected: false }
+          { name:'e14', selected: false }
+          { name:'e16', selected: false }
+          { name:'e18', selected: false }
           { name:'p0', selected: false }
           { name:'p7', selected: false }
         ]
@@ -60,15 +64,43 @@
 
           Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
-            $scope.getp0 = () ->
+            $scope.gete12 = () ->
               if ($scope.timepoints[0].selected == true)
+                for data in expressions.data.data
+                  if data.timePoint == 'e12'
+                    $scope.expression = data
+                return true
+
+            $scope.gete14 = () ->
+              if ($scope.timepoints[1].selected == true)
+                for data in expressions.data.data
+                  if data.timePoint == 'e14'
+                    $scope.expression = data
+                return true
+
+            $scope.gete16 = () ->
+              if ($scope.timepoints[2].selected == true)
+                for data in expressions.data.data
+                  if data.timePoint == 'e16'
+                    $scope.expression = data
+                return true
+
+            $scope.gete18 = () ->
+              if ($scope.timepoints[3].selected == true)
+                for data in expressions.data.data
+                  if data.timePoint == 'e18'
+                    $scope.expression = data
+                return true
+
+            $scope.getp0 = () ->
+              if ($scope.timepoints[4].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p0'
                     $scope.expression = data
                 return true
 
             $scope.getp7 = () ->
-              if ($scope.timepoints[1].selected == true)
+              if ($scope.timepoints[5].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p7'
                     $scope.expression = data
@@ -77,7 +109,7 @@
 
         $scope.submitCellTimes = () ->
 
-          timepoints = ['p0','p7']
+          timepoints = ['e12','e14','e16','e18','p0','p7']
 
           Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
@@ -97,5 +129,6 @@
                 cell_count++
 
             $scope.getCells = () ->
+              console.log cellExpressions
               $scope.cellExpressions = cellExpressions
               return true

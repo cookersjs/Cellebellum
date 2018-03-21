@@ -11,8 +11,8 @@ dump/
 config/
 
 # Datafiles
-bin/p0fullexpression*
-bin/p7fullexpression*
+bin/*.csv
+
 
 # Testing
 src/tests.webpack.js.map

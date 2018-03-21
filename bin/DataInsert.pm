@@ -4,9 +4,13 @@ use strict;
 use MongoDB;
 use Data::Dumper;
 
+open (my $e12_fh, '<', 'bin/e12_annotated.csv') or die "Could not open txt file\n";
+open (my $e14_fh, '<', 'bin/e14_annotated.csv') or die "Could not open txt file\n";
+open (my $e16_fh, '<', 'bin/e16_annotated.csv') or die "Could not open txt file\n";
+open (my $e18_fh, '<', 'bin/e18_annotated.csv') or die "Could not open txt file\n";
 open (my $p0_fh, '<', 'bin/p0fullexpression.csv') or die "Could not open txt file\n";
 open (my $p7_fh, '<', 'bin/p7fullexpression.csv') or die "Could not open txt file\n";
-my @files = ($p0_fh, $p7_fh);
+my @files = ($e12_fh, $e14_fh, $e16_fh, $e18_fh, $p0_fh, $p7_fh);
 
 my $client = MongoDB->connect();
 my $db = $client->get_database('cellebellum');
@@ -15,10 +19,23 @@ $collection->indexes->create_one( [ 'geneSymbol' => 1 ], { unique => 1 });
 
 my $fileCount = 0;
 for my $fh (@files) {
-  my $p = 'p0';
+  my $p = 'e12';
   if ($fileCount == 1) {
+    $p = 'e14';
+  }
+  if ($fileCount == 2) {
+    $p = 'e16';
+  }
+  if ($fileCount == 3) {
+    $p = 'e18';
+  }
+  if ($fileCount == 4) {
+    $p = 'p0';
+  }
+  if ($fileCount == 5) {
     $p = 'p7';
   }
+
   my $headers = <$fh>;
   $headers =~ s/\s-\s/-/g;
   $headers =~ s/\R//g;
