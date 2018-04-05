@@ -22,6 +22,7 @@
     angular
       .module 'cellebellum.controllers.cellebellum', [
         'restangular'
+        'chart.js'
       ]
 
 # The controller for the vcf submission, which handles the vcf submission page
@@ -64,46 +65,47 @@
 
           Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
+
             $scope.gete12 = () ->
               if ($scope.timepoints[0].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e12'
-                    $scope.expression = data
-                return true
+                    $scope.e12 = data
+                return data
 
             $scope.gete14 = () ->
               if ($scope.timepoints[1].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e14'
-                    $scope.expression = data
+                    $scope.expressed = data
                 return true
 
             $scope.gete16 = () ->
               if ($scope.timepoints[2].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e16'
-                    $scope.expression = data
+                    $scope.expressed = data
                 return true
 
             $scope.gete18 = () ->
               if ($scope.timepoints[3].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e18'
-                    $scope.expression = data
+                    $scope.expressed = data
                 return true
 
             $scope.getp0 = () ->
               if ($scope.timepoints[4].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p0'
-                    $scope.expression = data
+                    $scope.expressed = data
                 return true
 
             $scope.getp7 = () ->
               if ($scope.timepoints[5].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p7'
-                    $scope.expression = data
+                    $scope.expressed = data
                 return true
 
 
@@ -115,20 +117,18 @@
           .then (expressions) ->
 
             cellExpressions = {}
+            cellExpressions['timepoints'] = []
             cellExpressions['data'] = []
             for data in expressions.data.data
-              cellExpressions['gene'] = data.gene
-              cellExpressions['cellType'] = $scope.celltype
+              cellExpressions.gene = data.gene
+              cellExpressions.celltype = $scope.celltype
+              cellExpressions.timepoints.push(data.timePoint)
               cell_count = 0
               for cell in data.cellTypes
                 if cell == $scope.celltype
-                  cellType = {}
-                  cellType['y'] = Number(data.data[cell_count])
-                  # cellType['time'] = data.timePoint
-                  cellExpressions.data.push(cellType)
+                  cellExpressions.data.push(Number(data.data[cell_count]))
                 cell_count++
 
             $scope.getCells = () ->
-              console.log cellExpressions
               $scope.cellExpressions = cellExpressions
               return true

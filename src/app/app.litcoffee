@@ -48,6 +48,10 @@
 
     require 'services/genomics'
 
+# Import chart.js
+    require '../../node_modules/chart.js/dist/Chart.min.js'
+    require '../../node_modules/angular-chart.js/dist/angular-chart.min.js'
+
 # Then all of the partials
 
     CellebellumPartial = require 'cellebellum.html'
@@ -64,6 +68,7 @@
         'cellebellum.directives.charts'
         'cellebellum.services.genomics'
         '720kb.tooltips'
+        'chart.js'
       ]
 
 
