@@ -43,15 +43,17 @@
         ]
         $scope.celltypes = [
           { name:'NSCs', selected: false }
-          { name:'GABAergic Neurons', selected: false }
-          { name:'DCN Precursors', selected: false }
+          { name:'GABAergic_precursors', selected: false }
+          { name:'DCN_precursors', selected: false }
           { name:'UBCs', selected: false }
-          { name:'Meninges', selected: false }
           { name:'OPCs', selected: false }
-          { name:'Endothelial Cells', selected: false }
-          { name:'Pericytes', selected: false }
           { name:'Microglia', selected: false }
+          { name:'Purkinje_precursors', selected: false }
+          { name:'GPCs', selected: false }
+          { name:'Radial_Glia', selected: false }
         ]
+
+        $scope.barChartColors = [ "#e6194b","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000"]
 
         $scope.selectCelltype = (value) ->
           $scope.celltype = value
@@ -77,35 +79,35 @@
               if ($scope.timepoints[1].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e14'
-                    $scope.expressed = data
+                    $scope.e14 = data
                 return true
 
             $scope.gete16 = () ->
               if ($scope.timepoints[2].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e16'
-                    $scope.expressed = data
+                    $scope.e16 = data
                 return true
 
             $scope.gete18 = () ->
               if ($scope.timepoints[3].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e18'
-                    $scope.expressed = data
+                    $scope.e18 = data
                 return true
 
             $scope.getp0 = () ->
               if ($scope.timepoints[4].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p0'
-                    $scope.expressed = data
+                    $scope.p0 = data
                 return true
 
             $scope.getp7 = () ->
               if ($scope.timepoints[5].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p7'
-                    $scope.expressed = data
+                    $scope.p7 = data
                 return true
 
 
