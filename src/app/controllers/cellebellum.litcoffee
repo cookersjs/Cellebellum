@@ -42,15 +42,22 @@
           { name:'p7', selected: false }
         ]
         $scope.celltypes = [
-          { name:'NSCs', selected: false }
-          { name:'GABAergic_precursors', selected: false }
+          { name:'Astrocytes', selected: false }
           { name:'DCN_precursors', selected: false }
-          { name:'UBCs', selected: false }
-          { name:'OPCs', selected: false }
-          { name:'Microglia', selected: false }
-          { name:'Purkinje_precursors', selected: false }
+          { name:'GABAergic_precursors', selected: false }
           { name:'GPCs', selected: false }
+          { name:'Immature_GCs', selected: false }
+          { name:'Immature_Neurons', selected: false }
+          { name:'Microglia', selected: false }
+          { name:'NSCs', selected: false }
+          { name:'Neuroblasts', selected: false }
+          { name:'Neuronal_Progenitors', selected: false }
+          { name:'OPCs', selected: false }
+          { name:'Oligodendrocytes', selected: false }
+          { name:'Purkinje_precursors', selected: false }
           { name:'Radial_Glia', selected: false }
+          { name:'Stem_Cells', selected: false }
+          { name:'UBCs', selected: false }  
         ]
 
         $scope.barChartColors = [ "#e6194b","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000"]

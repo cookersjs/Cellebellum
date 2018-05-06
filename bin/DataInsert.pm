@@ -51,7 +51,9 @@ for my $fh (@files) {
     my @line = split(',', $_);
     my %csv;
     my $gene = shift @line;
+    my $keyword = shift @line;
     $csv{geneSymbol} = $gene;
+    $csv{keyword} = $keyword;
 
     foreach my $i (0...$#line) {
       my %sub_csv;
