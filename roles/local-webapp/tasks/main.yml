@@ -19,17 +19,17 @@
 - name: bring the front-end together in {{ tmp }} using {{ webpack }} file
   shell: NODE_ENV=production webpack --config {{ webpack }}
 
-- name: copy backend-end scripts from {{ webapp }}
-  shell: coffee -c -o {{ tmp }} {{ webapp }}/service {{ webapp }}/common
+# - name: copy backend-end scripts from {{ webapp }}
+#   shell: coffee -c -o {{ tmp }} {{ webapp }}/service {{ webapp }}/common
 
-- name: copy reporting scripts from {{ reporting }}
-  shell: cp -r {{ reporting }} {{ tmp }}
+# - name: copy reporting scripts from {{ reporting }}
+#   shell: cp -r {{ reporting }} {{ tmp }}
 
-- name: copy searching scripts from {{ searching }}
-  shell: cp -r {{ searching }} {{ tmp }}
+# - name: copy searching scripts from {{ searching }}
+#   shell: cp -r {{ searching }} {{ tmp }}
 
-- name: copy scripts from {{ scripts }}
-  shell: cp -r {{ scripts }} {{ tmp }}
+# - name: copy scripts from {{ scripts }}
+#   shell: cp -r {{ scripts }} {{ tmp }}
 
 - name: we need some additional backend styling
   shell: mkdir -p {{ tmp }}/reporting/css &&

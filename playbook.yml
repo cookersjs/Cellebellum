@@ -4,12 +4,12 @@
   connection: local
 
   roles:
-    - {
-        role: "local-webapp",
-        image_name: "webapp",
-        webpack: "webpack/webpack.js",
-        tags: [ "webapp" ],
-      }
+  #   - {
+  #       role: "local-webapp",
+  #       image_name: "webapp",
+  #       webpack: "webpack/webpack.js",
+  #       tags: [ "webapp" ],
+  #     }
 
     - {
         role: "local-image",
@@ -19,15 +19,15 @@
 
 - hosts: all
   become: true
-
+#
   roles:
-    - {
-        role: "setup",
-        path: "/usr/lib/heliotrope",
-        tags: [ "setup" ],
-        become_method: sudo
-      }
-
+#     - {
+#         role: "setup",
+#         path: "/usr/lib/cellebellum",
+#         tags: [ "setup" ],
+#         become_method: sudo
+#       }
+#
     - {
         role: "data",
         tags: [ "setup", "data" ],
@@ -47,10 +47,10 @@
       become_method: sudo
       }
 
-- hosts: localhost
-  tasks:
-  - name: remove local deployment containers
-    file:
-      path: ./dist/build/*_production
-      state: absent
-    tags: [ "setup", "service", "cleanup" ]
+# - hosts: localhost
+#   tasks:
+#   - name: remove local deployment containers
+#     file:
+#       path: ./dist/build/*_production
+#       state: absent
+#     tags: [ "setup", "service", "cleanup" ]

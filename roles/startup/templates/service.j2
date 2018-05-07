@@ -1,0 +1,14 @@
+[Unit]
+Description={{ service_description }}
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimoutStartSec=0
+ExecStart=/usr/bin/sudo /usr/bin/docker-compose -f /usr/lib/cellebellum/{{ compose_file }} up
+ExecStop=-/usr/bin/sudo /usr/bin/docker-compose -f /usr/lib/cellebellum/{{ compose_file }} down -v --remove-orphans
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

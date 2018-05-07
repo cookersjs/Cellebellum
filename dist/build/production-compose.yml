@@ -3,31 +3,31 @@ version: '2'
 services:
 
   # Build the elastic service
-  elastic:
-    image: elastic:latest
-    container_name: elastic
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    mem_limit: 8g
-    cap_add:
-      - IPC_LOCK
-    volumes:
-      - ./data/elastic/:/usr/share/elasticsearch/data
-    tty: true
-    ports:
-      - 9200:9200
-    restart: always
-    networks:
-      - heliotrope
+  # elastic:
+  #   image: elastic:latest
+  #   container_name: elastic
+  #   environment:
+  #     - cluster.name=docker-cluster
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #     nofile:
+  #       soft: 65536
+  #       hard: 65536
+  #   mem_limit: 8g
+  #   cap_add:
+  #     - IPC_LOCK
+  #   volumes:
+  #     - ./data/elastic/:/usr/share/elasticsearch/data
+  #   tty: true
+  #   ports:
+  #     - 9200:9200
+  #   restart: always
+  #   networks:
+  #     - heliotrope
 
   # Set up the database
   mongo:
@@ -40,122 +40,121 @@ services:
       - 27017:27017
     restart: always
     command: mongod --storageEngine wiredTiger
-    networks:
-      - heliotrope
+    # networks:
+    #   - cellebellum
 
-  rabbitmq:
-    image: "rabbitmq:3"
-    container_name: "rabbitmq"
-    hostname: "heliRabbitMQ"
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    restart: always
-    tty: true
-    labels:
-      NAME: "heliRabbitMQ"
-    networks:
-      - heliotrope
+  # rabbitmq:
+  #   image: "rabbitmq:3"
+  #   container_name: "rabbitmq"
+  #   hostname: "heliRabbitMQ"
+  #   ports:
+  #     - "15672:15672"
+  #     - "5672:5672"
+  #   restart: always
+  #   tty: true
+  #   labels:
+  #     NAME: "heliRabbitMQ"
+  #   networks:
+  #     - heliotrope
 
-  delegator:
-    image: delegator:latest
-    container_name: delegator
-    ports:
-      - "8015:8015"
-    restart: always
-    networks:
-      - heliotrope
-    depends_on:
-      - "rabbitmq"
-    volumes:
-      - /data/HeliData/:/data/HeliData/
+  # delegator:
+  #   image: delegator:latest
+  #   container_name: delegator
+  #   ports:
+  #     - "8015:8015"
+  #   restart: always
+  #   networks:
+  #     - heliotrope
+  #   depends_on:
+  #     - "rabbitmq"
+  #   volumes:
+  #     - /data/HeliData/:/data/HeliData/
 
   # Run vep
-  vep_node:
-    image: vep_node:latest
-    container_name: vep_node
-    ports:
-      - "8012:8012"
-    restart: always
-    networks:
-      - heliotrope
-    depends_on:
-      - "delegator"
-    volumes:
-      - /data/HeliData/:/data/HeliData/
+  # vep_node:
+  #   image: vep_node:latest
+  #   container_name: vep_node
+  #   ports:
+  #     - "8012:8012"
+  #   restart: always
+  #   networks:
+  #     - heliotrope
+  #   depends_on:
+  #     - "delegator"
+  #   volumes:
+  #     - /data/HeliData/:/data/HeliData/
 
   # Run Somatic Variant Classifier
-  somatic_node:
-    image: somatic_node:latest
-    container_name: somatic_node
-    ports:
-      - "8011:8011"
-    restart: always
-    networks:
-      - heliotrope
-    depends_on:
-      - "delegator"
-    volumes:
-      - /data/HeliData/:/data/HeliData/
-      
+  # somatic_node:
+  #   image: somatic_node:latest
+  #   container_name: somatic_node
+  #   ports:
+  #     - "8011:8011"
+  #   restart: always
+  #   networks:
+  #     - heliotrope
+  #   depends_on:
+  #     - "delegator"
+  #   volumes:
+  #     - /data/HeliData/:/data/HeliData/
+
   # Run circos
-  circos_node:
-    image: circos_node:latest
-    container_name: circos_node
-    ports:
-      - "8010:8010"
-    restart: always
-    networks:
-      - heliotrope
-    depends_on:
-      - "delegator"
-    volumes:
-      - /data/HeliData/:/data/HeliData/
+  # circos_node:
+  #   image: circos_node:latest
+  #   container_name: circos_node
+  #   ports:
+  #     - "8010:8010"
+  #   restart: always
+  #   networks:
+  #     - heliotrope
+  #   depends_on:
+  #     - "delegator"
+  #   volumes:
+  #     - /data/HeliData/:/data/HeliData/
 
   # Run Redis
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - "6379:6379"
-    restart: always
-    networks:
-      - heliotrope
+  # redis:
+  #   image: redis:latest
+  #   container_name: redis
+  #   ports:
+  #     - "6379:6379"
+  #   restart: always
+  #   networks:
+  #     - heliotrope
 
   # Build and run the server (back-end and front-end)
-  webapp:
-    image: webapp:latest
-    depends_on:
-      - "mongo"
-      - "elastic"
-    container_name: webapp
-    ports:
-      - "3001:3001"
-    tty: true
-    restart: always
-    # Mount the static files
-    volumes:
-      - ui:/tmp/build/webapp
-      - /data/HeliData/:/data/HeliData/
-    networks:
-      - heliotrope
-
-  nginx:
-    image: nginx:1.13.1
-    depends_on:
-      - "webapp"
-    ports:
-      - "80:80"
-    volumes:
-      - ui:/usrc/share/nginx/html:ro
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - /data/HeliData/:/data/HeliData/
-    networks:
-      - heliotrope
+  # webapp:
+  #   image: webapp:latest
+  #   depends_on:
+  #     - "mongo"
+  #   container_name: webapp
+  #   ports:
+  #     - "3001:3001"
+  #   tty: true
+  #   restart: always
+  #   # Mount the static files
+  #   volumes:
+  #     - ui:/tmp/build/webapp
+  #     - /data/db/:/data/db/
+  #   networks:
+  #     - heliotrope
+  #
+  # nginx:
+  #   image: nginx:1.13.1
+  #   depends_on:
+  #     - "webapp"
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ui:/usrc/share/nginx/html:ro
+  #     - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+  #     - /data/db/:/data/db/
+  #   networks:
+  #     - heliotrope
 
 volumes:
   ui:
 
 networks:
-  heliotrope:
+  cellebellum:
     driver: bridge
