@@ -40,8 +40,8 @@ services:
       - 27017:27017
     restart: always
     command: mongod --storageEngine wiredTiger
-    # networks:
-    #   - cellebellum
+    networks:
+      - cellebellum
 
   # rabbitmq:
   #   image: "rabbitmq:3"
@@ -123,34 +123,34 @@ services:
   #     - heliotrope
 
   # Build and run the server (back-end and front-end)
-  # webapp:
-  #   image: webapp:latest
-  #   depends_on:
-  #     - "mongo"
-  #   container_name: webapp
-  #   ports:
-  #     - "3001:3001"
-  #   tty: true
-  #   restart: always
-  #   # Mount the static files
-  #   volumes:
-  #     - ui:/tmp/build/webapp
-  #     - /data/db/:/data/db/
-  #   networks:
-  #     - heliotrope
-  #
-  # nginx:
-  #   image: nginx:1.13.1
-  #   depends_on:
-  #     - "webapp"
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - ui:/usrc/share/nginx/html:ro
-  #     - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-  #     - /data/db/:/data/db/
-  #   networks:
-  #     - heliotrope
+  webapp:
+    image: webapp:latest
+    depends_on:
+      - "mongo"
+    container_name: webapp
+    ports:
+      - "3001:3001"
+    tty: true
+    restart: always
+    # Mount the static files
+    volumes:
+      - ui:/tmp/build/webapp
+      - /data/db/:/data/db/
+    networks:
+      - cellebellum
+
+  nginx:
+    image: nginx:1.13.1
+    depends_on:
+      - "webapp"
+    ports:
+      - "80:80"
+    volumes:
+      - ui:/usrc/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /data/db/:/data/db/
+    networks:
+      - cellebellum
 
 volumes:
   ui:

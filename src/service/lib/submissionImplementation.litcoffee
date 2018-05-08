@@ -82,6 +82,6 @@ Queries Mongo and gets the matching gene data back, if any.
                 expressionData['cellTypes'] = cellTypes
                 expressionData['data'] = expressionValues
                 expressionTimes.push(expressionData)
-              console.log(expressionTimes)
+              # console.log(expressionTimes)
               res.status(200).send data: expressionTimes
             db.close()

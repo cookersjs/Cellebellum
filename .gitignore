@@ -9,10 +9,13 @@ dump/
 
 # Configuration
 config/
+config/front-end/*
 
 # Datafiles
 bin/*.csv
 
+# Docker images
+dist/build/*_production
 
 # Testing
 src/tests.webpack.js.map
@@ -23,3 +26,5 @@ rsa_id*
 # Logs/Errors
 .DS_Store
 npm-debug.log
+
+*.retry

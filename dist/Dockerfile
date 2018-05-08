@@ -55,12 +55,8 @@ WORKDIR /tmp/build
 # Install the node modules from package.json
 RUN npm install --production
 
-# Install hummus differently because it requires 
-# needs to be compiled with C or something like that
-RUN npm install hummus --build-from-source --unsafe-perm
-
 # Install nodemon globally for running the back-end
 RUN npm install -g nodemon
 
 # Something to do with setting a headless browser. Also needed for HTML->PDF conversion
-CMD Xvfb -ac -screen scrn 1280x2000x24 :9.0 & export DISPLAY=:9.0 && NODE_ENV=production nodemon main.js
+CMD NODE_ENV=production nodemon main.js

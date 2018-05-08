@@ -4,12 +4,12 @@
   connection: local
 
   roles:
-  #   - {
-  #       role: "local-webapp",
-  #       image_name: "webapp",
-  #       webpack: "webpack/webpack.js",
-  #       tags: [ "webapp" ],
-  #     }
+    - {
+        role: "local-webapp",
+        image_name: "webapp",
+        webpack: "webpack/webpack.js",
+        tags: [ "webapp" ],
+      }
 
     - {
         role: "local-image",
