@@ -30,8 +30,8 @@
       .controller 'CellebellumController', Array '$scope', '$http', '$timeout', 'Restangular', '$sce', ($scope, $http, $timeout, Restangular, $sce) ->
 
         $scope.methods =  [
-          { type:"All Cell Types, Different Timepoints", value:"0" }
-          { type:"Single Cell Type, Expression over Time", value:"1" }
+          { type:"All Cell Types, Different Timepoints", value:"0", chart:"bar" }
+          { type:"Single Cell Type, Expression over Time", value:"1", chart:"line" }
         ]
         $scope.timepoints = [
           { name:'e12', selected: false }
@@ -57,13 +57,45 @@
           { name:'Purkinje_precursors', selected: false }
           { name:'Radial_Glia', selected: false }
           { name:'Stem_Cells', selected: false }
-          { name:'UBCs', selected: false }  
+          { name:'UBCs', selected: false }
         ]
+
+        if !$scope.removal
+          $scope.removal = 0
+
+        $scope.resetItems = () ->
+          newTimes = []
+          newCells = []
+          if $scope.removal == 1
+            for time in $scope.timepoints
+              if time.selected == true
+                $('#bar' + time.name).hide()
+                time.selected = false
+              newTimes.push(time)
+            $('#lineChart').hide()
+
+            $scope.showDetails = false
+            $scope.showElements = false
+            $scope.timepoints = []
+            $scope.timepoints = newTimes
+
 
         $scope.barChartColors = [ "#e6194b","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000"]
 
         $scope.selectCelltype = (value) ->
           $scope.celltype = value
+
+        $scope.resetDropdown = (chartType) ->
+          if angular.isDefined($scope.selectedMethod)
+            $scope.selectedMethod = null
+            $scope.removal = 1
+            if chartType == 'bar'
+              for time in $scope.timepoints
+                if time.selected == true
+                  $('#bar' + time.name).show()
+            if chartType == 'line'
+              $('#lineChart').show()
+
 
         $scope.submitAllCells = () ->
 
@@ -71,6 +103,9 @@
           for time in $scope.timepoints
             if time.selected == true
               timepoints.push(time.name)
+
+          if $scope.showElements = true
+            $scope.showElements = false
 
           Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->

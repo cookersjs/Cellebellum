@@ -34,5 +34,5 @@
 - name: change permissions of the {{ path }}/data folder
   shell: sudo chown -R {{ uname }} {{ path }}/data
 
-- name: change permissions of the elastic folder because it won't run otherwise
-  shell: sudo chown -R 1000 {{ path }}/data/elastic
+# - name: change permissions of the elastic folder because it won't run otherwise
+#   shell: sudo chown -R 1000 {{ path }}/data/elastic

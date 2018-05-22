@@ -47,6 +47,13 @@
                   position: 'top',
                   text: title
                 },
+                scales: {
+                  xAxes: [{
+                    ticks: {
+                      autoSkip: false
+                    }
+                    }]
+                }
               }
               scope.barColors = scope.barChartColors
               return scope
@@ -71,6 +78,13 @@
                   position: 'top',
                   text: title
                 },
+                scales: {
+                  xAxes: [{
+                    ticks: {
+                      autoSkip: false
+                    }
+                    }]
+                }
               }
               scope.barColors = scope.barChartColors
               return scope
@@ -94,6 +108,13 @@
                   position: 'top',
                   text: title
                 },
+                scales: {
+                  xAxes: [{
+                    ticks: {
+                      autoSkip: false
+                    }
+                    }]
+                }
               }
               scope.barColors = scope.barChartColors
               return scope
@@ -117,6 +138,13 @@
                   position: 'top',
                   text: title
                 },
+                scales: {
+                  xAxes: [{
+                    ticks: {
+                      autoSkip: false
+                    }
+                    }]
+                }
               }
               scope.barColors = scope.barChartColors
               return scope
@@ -140,6 +168,13 @@
                   position: 'top',
                   text: title
                 },
+                scales: {
+                  xAxes: [{
+                    ticks: {
+                      autoSkip: false
+                    }
+                    }]
+                }
               }
               scope.barColors = scope.barChartColors
               return scope
@@ -163,6 +198,13 @@
                   position: 'top',
                   text: title
                 },
+                scales: {
+                  xAxes: [{
+                    ticks: {
+                      autoSkip: false
+                    }
+                    }]
+                }
               }
               scope.barColors = scope.barChartColors
               return scope
