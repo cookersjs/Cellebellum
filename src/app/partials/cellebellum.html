@@ -14,6 +14,10 @@
         <label ng-repeat="timepoint in timepoints">
           <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
         </label>
+        <br>
+        <!-- <div style="position:relative;top:10px;margin-bottom:5px;">
+        <input type="checkbox" ng-model="selectingAll" value="Select All" ng-click="selectAll()"><b> All Timepoints</b>
+        </div> -->
       </div>
       <div>
         <button id="submit" ng-click="submitAllCells();showDetails = !showDetails;resetDropdown(selectedMethod.chart)">Submit</button>

@@ -52,7 +52,13 @@
                     ticks: {
                       autoSkip: false
                     }
-                    }]
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression'
+                    }
+                  }]
                 }
               }
               scope.barColors = scope.barChartColors
@@ -83,7 +89,13 @@
                     ticks: {
                       autoSkip: false
                     }
-                    }]
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression'
+                    }
+                  }]
                 }
               }
               scope.barColors = scope.barChartColors
@@ -113,7 +125,13 @@
                     ticks: {
                       autoSkip: false
                     }
-                    }]
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression'
+                    }
+                  }]
                 }
               }
               scope.barColors = scope.barChartColors
@@ -143,7 +161,13 @@
                     ticks: {
                       autoSkip: false
                     }
-                    }]
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression'
+                    }
+                  }]
                 }
               }
               scope.barColors = scope.barChartColors
@@ -173,7 +197,13 @@
                     ticks: {
                       autoSkip: false
                     }
-                    }]
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression'
+                    }
+                  }]
                 }
               }
               scope.barColors = scope.barChartColors
@@ -203,7 +233,13 @@
                     ticks: {
                       autoSkip: false
                     }
-                    }]
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression'
+                    }
+                  }]
                 }
               }
               scope.barColors = scope.barChartColors
@@ -216,14 +252,59 @@
         replace: true
         transclude: true
         scope: false
-        template: '<div><canvas id="line" style="height:500px;width:500px;" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions"></canvas></div>'
+        template: '<div><canvas id="line" style="height:500px;width:500px;" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'cellExpressions', (cellExpressions) ->
             if cellExpressions
               scope.expressCelltypes = cellExpressions.data
               scope.celltypesLabels = cellExpressions.timepoints
+              updatedCell = cellExpressions.celltype.replace("_", " ")
+              title = cellExpressions.gene + " expression in " + updatedCell
               scope.celltypesOptions = {
-                elements: {line: { fill: false }}
+                elements: {line: { fill: false }},
+                title: {
+                  display: true,
+                  position: 'top',
+                  text: title,
+                  fontSize: 18
+                }
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression',
+                      fontSize: 18
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Timepoints',
+                      fontSize: 18
+                    }
+                  }]
+                },
+                tooltips: {
+                  callbacks: {
+                    # title: (tooltipItem, data) ->
+                    #   value = data.datasets[tooltipItem[0].datasetIndex].data[tooltipItem[0].index];
+                    #   console.log value
+                    #   return "Timepoint: " + value
+                    # ,
+                    label: (tooltipItem, data) ->
+                      value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                      if value == 0
+                        value = "0.00"
+                      return value
+                    # ,
+                    # afterLabel: (tooltipItem, data) ->
+                    #   value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    #   return "Segment "
+                  }
+                },
+                hover: {
+                  mode: 'nearest'
+                }
               }
             #   scope.colors = [{
             #     backgroundColor : '#0062ff',

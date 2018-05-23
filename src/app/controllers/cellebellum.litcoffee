@@ -41,22 +41,23 @@
           { name:'p0', selected: false }
           { name:'p7', selected: false }
         ]
+        $scope.selectAll
         $scope.celltypes = [
           { name:'Astrocytes', selected: false }
-          { name:'DCN_precursors', selected: false }
-          { name:'GABAergic_precursors', selected: false }
+          { name:'DCN precursors', selected: false }
+          { name:'GABAergic precursors', selected: false }
           { name:'GPCs', selected: false }
-          { name:'Immature_GCs', selected: false }
-          { name:'Immature_Neurons', selected: false }
+          { name:'Immature GCs', selected: false }
+          { name:'Immature Neurons', selected: false }
           { name:'Microglia', selected: false }
           { name:'NSCs', selected: false }
           { name:'Neuroblasts', selected: false }
-          { name:'Neuronal_Progenitors', selected: false }
+          { name:'Neuronal Progenitors', selected: false }
           { name:'OPCs', selected: false }
           { name:'Oligodendrocytes', selected: false }
-          { name:'Purkinje_precursors', selected: false }
-          { name:'Radial_Glia', selected: false }
-          { name:'Stem_Cells', selected: false }
+          { name:'Purkinje precursors', selected: false }
+          { name:'Radial Glia', selected: false }
+          { name:'Stem Cells', selected: false }
           { name:'UBCs', selected: false }
         ]
 
@@ -68,9 +69,8 @@
           newCells = []
           if $scope.removal == 1
             for time in $scope.timepoints
-              if time.selected == true
-                $('#bar' + time.name).hide()
-                time.selected = false
+              $('#bar' + time.name).hide()
+              time.selected = false
               newTimes.push(time)
             $('#lineChart').hide()
 
@@ -78,12 +78,15 @@
             $scope.showElements = false
             $scope.timepoints = []
             $scope.timepoints = newTimes
+            # $scope.allSelected = 0;
 
 
-        $scope.barChartColors = [ "#e6194b","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000"]
+
+        $scope.barChartColors = [ "#cc0000","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000", "#20B2AA"]
 
         $scope.selectCelltype = (value) ->
-          $scope.celltype = value
+          underlineValue = value.replace(" ", "_")
+          $scope.celltype = underlineValue
 
         $scope.resetDropdown = (chartType) ->
           if angular.isDefined($scope.selectedMethod)
@@ -96,12 +99,19 @@
             if chartType == 'line'
               $('#lineChart').show()
 
+        # $scope.allSelected = 0;
+        #
+        # $scope.selectAll = () ->
+        #   if $scope.allSelected == 0
+        #     $scope.allSelected = 1;
+        #   else
+        #     $scope.allSelected = 0;
 
         $scope.submitAllCells = () ->
 
           timepoints = []
           for time in $scope.timepoints
-            if time.selected == true
+            if time.selected == true || $scope.allSelected == 1
               timepoints.push(time.name)
 
           if $scope.showElements = true
@@ -111,44 +121,74 @@
           .then (expressions) ->
 
             $scope.gete12 = () ->
-              if ($scope.timepoints[0].selected == true)
+              if ($scope.timepoints[0].selected == true || $scope.allSelected == 1)
                 for data in expressions.data.data
                   if data.timePoint == 'e12'
+                    updatedCells = []
+                    for cell in data.cellTypes
+                      cell = cell.replace("_", " ")
+                      updatedCells.push(cell)
+                    data.cellTypes = updatedCells
                     $scope.e12 = data
                 return data
 
             $scope.gete14 = () ->
-              if ($scope.timepoints[1].selected == true)
+              if ($scope.timepoints[1].selected == true || $scope.allSelected == 1)
                 for data in expressions.data.data
                   if data.timePoint == 'e14'
+                    updatedCells = []
+                    for cell in data.cellTypes
+                      cell = cell.replace("_", " ")
+                      updatedCells.push(cell)
+                    data.cellTypes = updatedCells
                     $scope.e14 = data
                 return true
 
             $scope.gete16 = () ->
-              if ($scope.timepoints[2].selected == true)
+              if ($scope.timepoints[2].selected == true || $scope.allSelected == 1)
                 for data in expressions.data.data
                   if data.timePoint == 'e16'
+                    updatedCells = []
+                    for cell in data.cellTypes
+                      cell = cell.replace("_", " ")
+                      updatedCells.push(cell)
+                    data.cellTypes = updatedCells
                     $scope.e16 = data
                 return true
 
             $scope.gete18 = () ->
-              if ($scope.timepoints[3].selected == true)
+              if ($scope.timepoints[3].selected == true || $scope.allSelected == 1)
                 for data in expressions.data.data
                   if data.timePoint == 'e18'
+                    updatedCells = []
+                    for cell in data.cellTypes
+                      cell = cell.replace("_", " ")
+                      updatedCells.push(cell)
+                    data.cellTypes = updatedCells
                     $scope.e18 = data
                 return true
 
             $scope.getp0 = () ->
-              if ($scope.timepoints[4].selected == true)
+              if ($scope.timepoints[4].selected == true || $scope.allSelected == 1)
                 for data in expressions.data.data
                   if data.timePoint == 'p0'
+                    updatedCells = []
+                    for cell in data.cellTypes
+                      cell = cell.replace("_", " ")
+                      updatedCells.push(cell)
+                    data.cellTypes = updatedCells
                     $scope.p0 = data
                 return true
 
             $scope.getp7 = () ->
-              if ($scope.timepoints[5].selected == true)
+              if ($scope.timepoints[5].selected == true || $scope.allSelected == 1)
                 for data in expressions.data.data
                   if data.timePoint == 'p7'
+                    updatedCells = []
+                    for cell in data.cellTypes
+                      cell = cell.replace("_", " ")
+                      updatedCells.push(cell)
+                    data.cellTypes = updatedCells
                     $scope.p7 = data
                 return true
 
