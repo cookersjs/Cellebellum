@@ -55,11 +55,11 @@ Configure a new client
 
 Queries Mongo and gets the matching gene data back, if any.
 
-    module.exports.queryMongo = (req, res) ->
-      gene = req.body.gene
+    module.exports.queryMongo = (req, res, blank) ->
+      gene = req.query.gene
       gene = gene.toLowerCase()
       gene = gene.charAt(0).toUpperCase() + gene.slice(1)
-      timepoints = req.body.timepoints
+      timepoints = req.query.timepoints
       MongoClient.connect mongoUrl, (err, db) ->
         db.collection 'cellebellum', (err, cellebellum) ->
           cellebellum.findOne {geneSymbol: gene}, (err, result) ->
@@ -68,6 +68,8 @@ Queries Mongo and gets the matching gene data back, if any.
             else
               expressionTimes = []
               for time in timepoints
+                if time == "null"
+                  continue
                 expressionData = {}
                 cellTypes = []
                 expressionValues = []
@@ -82,6 +84,5 @@ Queries Mongo and gets the matching gene data back, if any.
                 expressionData['cellTypes'] = cellTypes
                 expressionData['data'] = expressionValues
                 expressionTimes.push(expressionData)
-              # console.log(expressionTimes)
               res.status(200).send data: expressionTimes
             db.close()

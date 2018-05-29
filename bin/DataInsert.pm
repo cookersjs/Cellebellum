@@ -41,6 +41,10 @@ for my $fh (@files) {
   $headers =~ s/\R//g;
   my @headers = split(',', $headers);
   shift @headers;
+  my $keywords = <$fh>;
+  $keywords =~ s/\R//g;
+  my @keywords = split(',', $keywords);
+  shift @keywords;
   foreach my $header (@headers) {
     $header =~ s/\s$//;
     $header =~ s/\s/_/;
@@ -51,13 +55,12 @@ for my $fh (@files) {
     my @line = split(',', $_);
     my %csv;
     my $gene = shift @line;
-    my $keyword = shift @line;
     $csv{geneSymbol} = $gene;
-    $csv{keyword} = $keyword;
 
     foreach my $i (0...$#line) {
       my %sub_csv;
       $sub_csv{$headers[$i]} = $line[$i];
+      # $sub_csv{keyword} = $keywords[$i];
       push @{$csv{data}{$p}}, \%sub_csv;
     }
 

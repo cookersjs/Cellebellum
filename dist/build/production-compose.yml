@@ -134,7 +134,6 @@ services:
     restart: always
     # Mount the static files
     volumes:
-      - ui:/tmp/build/webapp
       - /data/db/:/data/db/
     networks:
       - cellebellum

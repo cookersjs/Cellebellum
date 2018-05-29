@@ -41,7 +41,7 @@
           { name:'p0', selected: false }
           { name:'p7', selected: false }
         ]
-        $scope.selectAll
+
         $scope.celltypes = [
           { name:'Astrocytes', selected: false }
           { name:'DCN precursors', selected: false }
@@ -111,17 +111,18 @@
 
           timepoints = []
           for time in $scope.timepoints
-            if time.selected == true || $scope.allSelected == 1
+            if time.selected == true
               timepoints.push(time.name)
+          timepoints.push("null")
 
           if $scope.showElements = true
             $scope.showElements = false
 
-          Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
+          Restangular.all('submissions').all('submit').customGET("", gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
 
             $scope.gete12 = () ->
-              if ($scope.timepoints[0].selected == true || $scope.allSelected == 1)
+              if ($scope.timepoints[0].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e12'
                     updatedCells = []
@@ -133,7 +134,7 @@
                 return data
 
             $scope.gete14 = () ->
-              if ($scope.timepoints[1].selected == true || $scope.allSelected == 1)
+              if ($scope.timepoints[1].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e14'
                     updatedCells = []
@@ -145,7 +146,7 @@
                 return true
 
             $scope.gete16 = () ->
-              if ($scope.timepoints[2].selected == true || $scope.allSelected == 1)
+              if ($scope.timepoints[2].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e16'
                     updatedCells = []
@@ -157,7 +158,7 @@
                 return true
 
             $scope.gete18 = () ->
-              if ($scope.timepoints[3].selected == true || $scope.allSelected == 1)
+              if ($scope.timepoints[3].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'e18'
                     updatedCells = []
@@ -169,7 +170,7 @@
                 return true
 
             $scope.getp0 = () ->
-              if ($scope.timepoints[4].selected == true || $scope.allSelected == 1)
+              if ($scope.timepoints[4].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p0'
                     updatedCells = []
@@ -181,7 +182,7 @@
                 return true
 
             $scope.getp7 = () ->
-              if ($scope.timepoints[5].selected == true || $scope.allSelected == 1)
+              if ($scope.timepoints[5].selected == true)
                 for data in expressions.data.data
                   if data.timePoint == 'p7'
                     updatedCells = []
@@ -197,7 +198,7 @@
 
           timepoints = ['e12','e14','e16','e18','p0','p7']
 
-          Restangular.all('submissions').all('submit').customPOST(gene: $scope.gene, timepoints: timepoints)
+          Restangular.all('submissions').all('submit').customGET("", gene: $scope.gene, timepoints: timepoints)
           .then (expressions) ->
 
             cellExpressions = {}

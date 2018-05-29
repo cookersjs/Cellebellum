@@ -5,7 +5,7 @@
     window.__env = window.__env || {};
 
     // API url
-    window.__env.apiUrl = 'http://10.30.64.146:3001/api';
+    window.__env.apiUrl = 'http://sc-gem.com:3001/api';
 
     // Base url
     window.__env.baseUrl = '/';
