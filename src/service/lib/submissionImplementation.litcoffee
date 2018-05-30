@@ -74,11 +74,12 @@ Queries Mongo and gets the matching gene data back, if any.
                 cellTypes = []
                 expressionValues = []
                 data = result.data[time]
-                for item in data
-                  keys = Object.keys(item)
-                  key = keys[0];
-                  cellTypes.push(key)
-                  expressionValues.push(item[key])
+                if data != null && data != undefined
+                  for item in data
+                    keys = Object.keys(item)
+                    key = keys[0];
+                    cellTypes.push(key)
+                    expressionValues.push(item[key])
                 expressionData['timePoint'] = time
                 expressionData['gene'] = gene
                 expressionData['cellTypes'] = cellTypes

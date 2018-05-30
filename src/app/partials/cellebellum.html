@@ -18,11 +18,11 @@
         </label>
       </div>
       <div class="col-md-6 col-md-offset-3 col-xs-12">
-        <button id="submit" ng-click="submitAllCells();showDetails = !showDetails;resetDropdown(selectedMethod.chart)">Submit</button>
+        <button id="submit" ng-click="submitAllCells();">Submit</button>
       </div>
     </div>
 
-    <div ng-show="selectedMethod.value=='1'" ng-class="{ 'hidden': showElements }" class="row">
+    <div ng-show="selectedMethod.value=='1'"  class="row">
       <div class="text-left">
         <div class="text-center">
           <p id="instructions"><b>Select Cell Type:</b></p>
@@ -33,24 +33,22 @@
           </label>
         </span>
       </div>
-      <div ng-class="{ 'hidden': showElements }">
-      </div>
       <div class="col-sm-12">
-        <button id="submit" ng-click="submitCellTimes();showElements = !showElements;resetDropdown(selectedMethod.chart)">Submit</button>
+        <button id="submit" ng-click="submitCellTimes();">Submit</button>
       </div>
     </div>
   </div>
 
   <!-- Section for displaying results of query -->
-  <div id="queryResults">
+  <div id="queryResults" class="row">
     <!-- Display expression charts -->
     <div id="expressionCharts">
-      <div class="bare-chart" id="bare12" ng-show="gete12()" celle-bar-chart12></div>
-      <div class="bare-chart" id="bare14" ng-show="gete14()" celle-bar-chart14></div>
-      <div class="bare-chart" id="bare16" ng-show="gete16()" celle-bar-chart16></div>
-      <div class="bare-chart" id="bare18" ng-show="gete18()" celle-bar-chart18></div>
-      <div class="bare-chart" id="barp0" ng-show="getp0()" celle-bar-chart0></div>
-      <div class="bare-chart" id="barp7" ng-show="getp7()" celle-bar-chart7></div>
+      <div ng-show="timepoints[0].selected" class="bare-chart" id="bare12" celle-bar-chart expr="timepointsData.e12"></div>
+      <div ng-show="timepoints[1].selected" class="bare-chart" id="bare14" celle-bar-chart expr="timepointsData.e14"></div>
+      <div ng-show="timepoints[2].selected" class="bare-chart" id="bare16" celle-bar-chart expr="timepointsData.e16"></div>
+      <div ng-show="timepoints[3].selected" class="bare-chart" id="bare18" celle-bar-chart expr="timepointsData.e18"></div>
+      <div ng-show="timepoints[4].selected" class="bare-chart" id="barp0" celle-bar-chart expr="timepointsData.p0"></div>
+      <div ng-show="timepoints[5].selected" class="bare-chart" id="barp7" celle-bar-chart expr="timepointsData.p7"></div>
     </div>
 
     <!-- Display cell line chart -->

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "install-all": "npm i -g coffeescript karma cypress-cli nodemon webpack@2.6.1 webpack-dev-server; npm i",
+    "install-all": "npm i -g coffeescript karma cypress-cli nodemon webpack@2.6.1 webpack-dev-server@2.11.1; npm i",
     "dev": "NODE_ENV=develop webpack-dev-server --config webpack/webpack.dev.js",
     "build-be": "npm run decaf-be",
     "common-javascript": "coffee -c -o .tmp/lib/ src/common/lib/",
