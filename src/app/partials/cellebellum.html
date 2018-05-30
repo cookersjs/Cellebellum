@@ -16,8 +16,9 @@
         <label ng-repeat="timepoint in timepoints">
           <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
         </label>
-        <button ng-click="updateAllTimepoints(true)">Select All</button>
-        <button ng-click="updateAllTimepoints(false)">Deselect All</button>
+        <br>
+        <button class="btn" ng-click="updateAllTimepoints(true)">Select All</button>
+        <button class="btn" ng-click="updateAllTimepoints(false)">Deselect All</button>
       </div>
       <div class="col-md-6 col-md-offset-3 col-xs-12">
         <button id="submit" ng-click="submitAllCells();">Submit</button>
