@@ -48,18 +48,6 @@
   float:left;
   margin-right:20px;
 }
-//
-// #expressionCharts {
-//   position:absolute;
-//   top:22%;
-//   left:5%;
-// }
-
-// #chart {
-//   position:absolute;
-//   top:22%;
-//   left:35%;
-// }
 
 .bare-chart {
   width:500px;
@@ -67,11 +55,10 @@
   display:inline-block;
 }
 
-#line {
-  position:absolute;
-  top:28%;
-}
-
 .navbar{
   border-radius:0 !important;
+}
+
+#queryResults {
+  margin:25px;
 }

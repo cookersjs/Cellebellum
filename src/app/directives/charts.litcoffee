@@ -42,6 +42,8 @@
               scope.points = expr.data
               title = expr.gene + " Expression: " + expr.timePoint
               scope.options = {
+                responsive: true,
+                maintainAspectRatio: true,
                 title: {
                   display: true,
                   position: 'top',
@@ -71,10 +73,10 @@
         replace: true
         transclude: true
         scope: false
-        template: '<div><canvas id="line" style="height:500px !important;width:500px !important;" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
+        template: '<div><canvas id="line" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'cellExpressions', (cellExpressions) ->
-            if cellExpressions
+            if cellExpressions && cellExpressions.data != undefined
               scope.expressCelltypes = cellExpressions.data
               scope.celltypesLabels = cellExpressions.timepoints
               updatedCell = cellExpressions.celltype.replace("_", " ")
@@ -139,4 +141,4 @@
               # scope.celltypesColors = {
               #   backgroundColor: 'transparent',
               #   borderColor: '#F78511',
-              # }
+            #   # }

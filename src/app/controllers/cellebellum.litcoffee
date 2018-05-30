@@ -33,6 +33,10 @@
           { type:"All Cell Types, Different Timepoints", value:"0", chart:"bar" }
           { type:"Single Cell Type, Expression over Time", value:"1", chart:"line" }
         ]
+
+        # Set default selected method
+        $scope.selectedMethod = $scope.methods[0]
+
         $scope.timepoints = [
           { name:'e12', selected: false }
           { name:'e14', selected: false }
@@ -41,6 +45,10 @@
           { name:'p0', selected: false }
           { name:'p7', selected: false }
         ]
+
+        $scope.updateAllTimepoints = (selected) ->
+          for timepoint in $scope.timepoints
+            timepoint.selected = selected
 
         $scope.celltypes = [
           { name:'Astrocytes', selected: false }
@@ -61,28 +69,11 @@
           { name:'UBCs', selected: false }
         ]
 
+        # Holds the results for expression data
         $scope.timepointsData = {}
 
         if !$scope.removal
           $scope.removal = 0
-
-        $scope.resetItems = () ->
-          newTimes = []
-          newCells = []
-          if $scope.removal == 1
-            for time in $scope.timepoints
-              $('#bar' + time.name).hide()
-              time.selected = false
-              newTimes.push(time)
-            $('#lineChart').hide()
-
-            $scope.showDetails = false
-            $scope.showElements = false
-            $scope.timepoints = []
-            $scope.timepoints = newTimes
-            # $scope.allSelected = 0;
-
-
 
         $scope.barChartColors = [ "#cc0000","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000", "#20B2AA"]
 
@@ -90,18 +81,11 @@
           underlineValue = value.replace(" ", "_")
           $scope.celltype = underlineValue
 
-        $scope.resetDropdown = (chartType) ->
-          if angular.isDefined($scope.selectedMethod)
-            $scope.selectedMethod = null
-            $scope.removal = 1
-            if chartType == 'bar'
-              for time in $scope.timepoints
-                if time.selected == true
-                  $('#bar' + time.name).show()
-            if chartType == 'line'
-              $('#lineChart').show()
+        # Set default selected cell type
+        $scope.selectedCellType = $scope.celltypes[0]
+        $scope.selectCelltype($scope.selectedCellType.name)
 
-        # Retrieve the expression results for the selected cell lines
+        # Retrieve the expression results
         $scope.submitAllCells = () ->
           timepoints = ['e12','e14','e16','e18','p0','p7']
 
@@ -122,6 +106,7 @@
           .catch (err) ->
             console.log(err)
 
+        # Retrieve the cell time data
         $scope.submitCellTimes = () ->
 
           timepoints = ['e12','e14','e16','e18','p0','p7']
