@@ -14,24 +14,12 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-body {
-  padding: 50px;
-  padding-bottom: 0px;
-  overflow-wrap: break-word;
-}
-
-#initial {
-  position:absolute;
-  top:15%;
-  left:40%;
-}
-
 #geneForm {
   height:50px;
-  width:300px;
+  // width:300px;
   font-size:20pt;
   padding-left:15px;
-  margin-bottom:5%;
+  margin-bottom: 15px;
 }
 
 #instructions {
@@ -73,50 +61,17 @@ body {
   left:35%;
 }
 
-#bare12 {
+.bare-chart {
   width:500px;
   height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#bare14 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#bare16 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#bare18 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#barp0 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#barp7 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
+  display:inline-block;
 }
 
 #line {
   position:absolute;
   top:28%;
+}
+
+.navbar{
+  border-radius:0 !important;
 }

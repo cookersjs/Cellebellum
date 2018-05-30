@@ -1,57 +1,59 @@
-<div class="container" style="text-align:center;">
-
-  <div id="initial">
-    <div>
-      <input id="geneForm" placeholder="Type a Gene" ng-model="gene"></input>
+<div class="row" style="text-align:center;padding-top:25px">
+  <!-- Form for submitting queries -->
+  <div id="formSection">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 col-xs-12">
+        <input id="geneForm" class="form-control" placeholder="Type a Gene" ng-model="gene"></input>
+      </div>
+      <div class="col-md-4 col-md-offset-4 col-xs-12">
+        <select class="form-control" ng-model="selectedMethod" ng-options="method.type for method in methods" ng-change="resetItems();"></select>
+      </div>
     </div>
-    <div>
-      <select ng-model="selectedMethod" ng-options="method.type for method in methods" ng-change="resetItems();"></select>
-    </div>
 
-    <div ng-show="selectedMethod.value=='0'" ng-class="{ 'hidden': showDetails }">
+    <div ng-show="selectedMethod.value=='0'" class="row">
       <p id="instructions"><b>Select Time Points:</b></p>
-      <div>
+      <div class="col-md-6 col-md-offset-3 col-xs-12">
         <label ng-repeat="timepoint in timepoints">
           <input type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}<span style="margin:20px"></span>
         </label>
-        <br>
-        <!-- <div style="position:relative;top:10px;margin-bottom:5px;">
-        <input type="checkbox" ng-model="selectingAll" value="Select All" ng-click="selectAll()"><b> All Timepoints</b>
-        </div> -->
       </div>
-      <div>
+      <div class="col-md-6 col-md-offset-3 col-xs-12">
         <button id="submit" ng-click="submitAllCells();showDetails = !showDetails;resetDropdown(selectedMethod.chart)">Submit</button>
       </div>
-      <br><br><br>
     </div>
 
-    <div ng-show="selectedMethod.value=='1'" ng-class="{ 'hidden': showElements }">
-      <div style="text-align:left;">
-        <div style="text-align:center">
+    <div ng-show="selectedMethod.value=='1'" ng-class="{ 'hidden': showElements }" class="row">
+      <div class="text-left">
+        <div class="text-center">
           <p id="instructions"><b>Select Cell Type:</b></p>
         </div>
-        <label id="celltypesList" ng-repeat="celltype in celltypes">
-          <input id="celltypesRadio" name="celltype" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
-        </label>
+        <span class="col-md-4 col-md-offset-4 col-xs-12">
+          <label id="celltypesList" ng-repeat="celltype in celltypes">
+            <input id="celltypesRadio" name="celltype" type="radio" ng-model="value" value="{{celltype.name}}"ng-change='selectCelltype(value)'> {{celltype.name}}
+          </label>
+        </span>
       </div>
       <div ng-class="{ 'hidden': showElements }">
       </div>
-      <div>
+      <div class="col-sm-12">
         <button id="submit" ng-click="submitCellTimes();showElements = !showElements;resetDropdown(selectedMethod.chart)">Submit</button>
       </div>
     </div>
   </div>
 
-  <!-- <div id="expressionCharts"> -->
-    <div style="display:inline-block;" id="bare12" ng-show="gete12()" celle-bar-chart12></div>
-    <div style="display:inline-block;" id="bare14" ng-show="gete14()" celle-bar-chart14></div>
-    <div style="display:inline-block;" id="bare16" ng-show="gete16()" celle-bar-chart16></div>
-    <div style="display:inline-block;" id="bare18" ng-show="gete18()" celle-bar-chart18></div>
-    <div style="display:inline-block;" id="barp0" ng-show="getp0()" celle-bar-chart0></div>
-    <div style="display:inline-block;" id="barp7" ng-show="getp7()" celle-bar-chart7></div>
-  <!-- </div> -->
+  <!-- Section for displaying results of query -->
+  <div id="queryResults">
+    <!-- Display expression charts -->
+    <div id="expressionCharts">
+      <div class="bare-chart" id="bare12" ng-show="gete12()" celle-bar-chart12></div>
+      <div class="bare-chart" id="bare14" ng-show="gete14()" celle-bar-chart14></div>
+      <div class="bare-chart" id="bare16" ng-show="gete16()" celle-bar-chart16></div>
+      <div class="bare-chart" id="bare18" ng-show="gete18()" celle-bar-chart18></div>
+      <div class="bare-chart" id="barp0" ng-show="getp0()" celle-bar-chart0></div>
+      <div class="bare-chart" id="barp7" ng-show="getp7()" celle-bar-chart7></div>
+    </div>
 
-  <div id="lineChart" ng-show="getCells()" celle-line-chart></div>
-
-
+    <!-- Display cell line chart -->
+    <div class="row" style="margin:100px;" id="lineChart" ng-show="getCells()" celle-line-chart></div>
+  </div>
 </div>

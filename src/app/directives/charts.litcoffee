@@ -252,7 +252,7 @@
         replace: true
         transclude: true
         scope: false
-        template: '<div><canvas id="line" style="height:500px;width:500px;" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
+        template: '<div><canvas id="line" style="height:500px !important;width:500px !important;" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'cellExpressions', (cellExpressions) ->
             if cellExpressions
@@ -261,6 +261,8 @@
               updatedCell = cellExpressions.celltype.replace("_", " ")
               title = cellExpressions.gene + " expression in " + updatedCell
               scope.celltypesOptions = {
+                responsive: true,
+                maintainAspectRatio: true,
                 elements: {line: { fill: false }},
                 title: {
                   display: true,

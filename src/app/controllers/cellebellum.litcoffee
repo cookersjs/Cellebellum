@@ -99,14 +99,6 @@
             if chartType == 'line'
               $('#lineChart').show()
 
-        # $scope.allSelected = 0;
-        #
-        # $scope.selectAll = () ->
-        #   if $scope.allSelected == 0
-        #     $scope.allSelected = 1;
-        #   else
-        #     $scope.allSelected = 0;
-
         $scope.submitAllCells = () ->
 
           timepoints = []
