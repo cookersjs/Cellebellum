@@ -23,6 +23,9 @@
       .module 'cellebellum.controllers.cellebellum', [
         'restangular'
         'chart.js'
+        'ngMaterial'
+        'ngAnimate'
+        'ngAria'
       ]
 
 # The controller for the vcf submission, which handles the vcf submission page
