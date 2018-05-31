@@ -14,40 +14,18 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-body {
-  padding: 50px;
-  padding-bottom: 0px;
-  overflow-wrap: break-word;
-}
-
-#initial {
-  position:absolute;
-  top:15%;
-  left:40%;
-}
-
 #geneForm {
   height:50px;
-  width:300px;
+  // width:300px;
   font-size:20pt;
   padding-left:15px;
-  margin-bottom:5%;
+  margin-bottom: 15px;
 }
 
 #instructions {
   padding-top:10px;
   font-size:20px;
   color:#606060;
-}
-
-#submit {
-  position:relative;
-  top:15px;
-  background-color:#555555;
-  color:white;
-  font-size:20px;
-  height:40px;
-  width:150px;
 }
 
 #celltypesList {
@@ -61,62 +39,17 @@ body {
   margin-right:20px;
 }
 
-#expressionCharts {
-  position:absolute;
-  top:22%;
-  left:5%;
+.bare-chart {
+  width:500px;
+  height:250px;
+  display:inline-block;
 }
 
-#chart {
-  position:absolute;
-  top:22%;
-  left:35%;
+.navbar{
+  border-radius:0 !important;
+  margin-bottom: 0px !important;
 }
 
-#bare12 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#bare14 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#bare16 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#bare18 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#barp0 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-#barp7 {
-  width:500px;
-  height:250px;
-  position:relative;
-  top:200px;
-  margin-left:10px;
-}
-
-#line {
-  position:absolute;
-  top:28%;
+#queryResults {
+  margin:25px;
 }

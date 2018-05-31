@@ -28,6 +28,12 @@
     require 'angular-route'
     require 'restangular'
 
+# Angular material package
+    require 'angular-material'
+    require 'angular-animate'
+    require 'angular-aria'
+    require '../../node_modules/angular-material/angular-material.css'
+
 # Datatables stuff. Ugh, I don't like this but I don't see a better solution for now.
 
     jQuery.fn.dataTableExt = require 'datatables.net'
@@ -69,6 +75,9 @@
         'cellebellum.services.genomics'
         '720kb.tooltips'
         'chart.js'
+        'ngMaterial'
+        'ngAnimate'
+        'ngAria'
       ]
 
 

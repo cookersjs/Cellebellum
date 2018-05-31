@@ -23,27 +23,40 @@
       .module 'cellebellum.controllers.cellebellum', [
         'restangular'
         'chart.js'
+        'ngMaterial'
+        'ngAnimate'
+        'ngAria'
       ]
 
 # The controller for the vcf submission, which handles the vcf submission page
 
       .controller 'CellebellumController', Array '$scope', '$http', '$timeout', 'Restangular', '$sce', ($scope, $http, $timeout, Restangular, $sce) ->
 
+        $scope.timepointsArray = ['e12','e14','e16','e18','p0','p7']
         $scope.methods =  [
           { type:"All Cell Types, Different Timepoints", value:"0", chart:"bar" }
           { type:"Single Cell Type, Expression over Time", value:"1", chart:"line" }
         ]
+
+        # Set default selected method
+        $scope.selectedMethod = $scope.methods[0]
+
         $scope.timepoints = [
-          { name:'e12', selected: false }
-          { name:'e14', selected: false }
-          { name:'e16', selected: false }
-          { name:'e18', selected: false }
-          { name:'p0', selected: false }
-          { name:'p7', selected: false }
+          { name:'e12', selected: true }
+          { name:'e14', selected: true }
+          { name:'e16', selected: true }
+          { name:'e18', selected: true }
+          { name:'p0', selected: true }
+          { name:'p7', selected: true }
         ]
 
+        # Select and deselect all timepoints
+        $scope.updateAllTimepoints = (selected) ->
+          for timepoint in $scope.timepoints
+            timepoint.selected = selected
+
         $scope.celltypes = [
-          { name:'Astrocytes', selected: false }
+          { name:'Astrocytes', selected: true }
           { name:'DCN precursors', selected: false }
           { name:'GABAergic precursors', selected: false }
           { name:'GPCs', selected: false }
@@ -61,159 +74,65 @@
           { name:'UBCs', selected: false }
         ]
 
+        # Holds the results for timepoint data
+        $scope.timepointsData = {}
+
+        # Holds the results for expression data
+        $scope.expressionData = {}
+
         if !$scope.removal
           $scope.removal = 0
 
-        $scope.resetItems = () ->
-          newTimes = []
-          newCells = []
-          if $scope.removal == 1
-            for time in $scope.timepoints
-              $('#bar' + time.name).hide()
-              time.selected = false
-              newTimes.push(time)
-            $('#lineChart').hide()
-
-            $scope.showDetails = false
-            $scope.showElements = false
-            $scope.timepoints = []
-            $scope.timepoints = newTimes
-            # $scope.allSelected = 0;
-
-
-
         $scope.barChartColors = [ "#cc0000","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000", "#20B2AA"]
 
+        # Change selected cell type, update the graph
         $scope.selectCelltype = (value) ->
-          underlineValue = value.replace(" ", "_")
-          $scope.celltype = underlineValue
+          $scope.celltype = value
+          $scope.cellExpressions = $scope.expressionData[$scope.celltype]
 
-        $scope.resetDropdown = (chartType) ->
-          if angular.isDefined($scope.selectedMethod)
-            $scope.selectedMethod = null
-            $scope.removal = 1
-            if chartType == 'bar'
-              for time in $scope.timepoints
-                if time.selected == true
-                  $('#bar' + time.name).show()
-            if chartType == 'line'
-              $('#lineChart').show()
+        # Set default selected cell type
+        $scope.selectedCellType = $scope.celltypes[0]
+        $scope.selectCelltype($scope.selectedCellType.name)
 
-        # $scope.allSelected = 0;
-        #
-        # $scope.selectAll = () ->
-        #   if $scope.allSelected == 0
-        #     $scope.allSelected = 1;
-        #   else
-        #     $scope.allSelected = 0;
+        $scope.getAllCells = (expressions) ->
+          $scope.getExpr = (type, data) ->
+            updatedCells = []
+            for cell in data.cellTypes
+              cell = cell.replace("_", " ")
+              updatedCells.push(cell)
+            data.cellTypes = updatedCells
+            $scope.timepointsData[type] = data
 
-        $scope.submitAllCells = () ->
+          for data in expressions.data.data
+              $scope.getExpr(data.timePoint, data)
 
-          timepoints = []
-          for time in $scope.timepoints
-            if time.selected == true
-              timepoints.push(time.name)
-          timepoints.push("null")
+        $scope.getCellTimes = (expressions) ->
+          $scope.expressionData = {}
+          for cellType in $scope.celltypes
+            expression = {}
+            expression.gene = $scope.gene
+            expression.timepoints = []
+            expression.data = []
+            expression.celltype = cellType.name
+            $scope.expressionData[cellType.name] = expression
+          for data in expressions.data.data
+            index = 0
+            for cellType in data.cellTypes
+              if $scope.expressionData[cellType] != undefined
+                $scope.expressionData[cellType].data.push data.data[index]
+                $scope.expressionData[cellType].timepoints.push data.timePoint
+              index++
 
-          if $scope.showElements = true
-            $scope.showElements = false
+          # Seems like there is an issue with cell type naming
 
-          Restangular.all('submissions').all('submit').customGET("", gene: $scope.gene, timepoints: timepoints)
-          .then (expressions) ->
+          $scope.cellExpressions = $scope.expressionData[$scope.celltypes[0].name]
 
-            $scope.gete12 = () ->
-              if ($scope.timepoints[0].selected == true)
-                for data in expressions.data.data
-                  if data.timePoint == 'e12'
-                    updatedCells = []
-                    for cell in data.cellTypes
-                      cell = cell.replace("_", " ")
-                      updatedCells.push(cell)
-                    data.cellTypes = updatedCells
-                    $scope.e12 = data
-                return data
-
-            $scope.gete14 = () ->
-              if ($scope.timepoints[1].selected == true)
-                for data in expressions.data.data
-                  if data.timePoint == 'e14'
-                    updatedCells = []
-                    for cell in data.cellTypes
-                      cell = cell.replace("_", " ")
-                      updatedCells.push(cell)
-                    data.cellTypes = updatedCells
-                    $scope.e14 = data
-                return true
-
-            $scope.gete16 = () ->
-              if ($scope.timepoints[2].selected == true)
-                for data in expressions.data.data
-                  if data.timePoint == 'e16'
-                    updatedCells = []
-                    for cell in data.cellTypes
-                      cell = cell.replace("_", " ")
-                      updatedCells.push(cell)
-                    data.cellTypes = updatedCells
-                    $scope.e16 = data
-                return true
-
-            $scope.gete18 = () ->
-              if ($scope.timepoints[3].selected == true)
-                for data in expressions.data.data
-                  if data.timePoint == 'e18'
-                    updatedCells = []
-                    for cell in data.cellTypes
-                      cell = cell.replace("_", " ")
-                      updatedCells.push(cell)
-                    data.cellTypes = updatedCells
-                    $scope.e18 = data
-                return true
-
-            $scope.getp0 = () ->
-              if ($scope.timepoints[4].selected == true)
-                for data in expressions.data.data
-                  if data.timePoint == 'p0'
-                    updatedCells = []
-                    for cell in data.cellTypes
-                      cell = cell.replace("_", " ")
-                      updatedCells.push(cell)
-                    data.cellTypes = updatedCells
-                    $scope.p0 = data
-                return true
-
-            $scope.getp7 = () ->
-              if ($scope.timepoints[5].selected == true)
-                for data in expressions.data.data
-                  if data.timePoint == 'p7'
-                    updatedCells = []
-                    for cell in data.cellTypes
-                      cell = cell.replace("_", " ")
-                      updatedCells.push(cell)
-                    data.cellTypes = updatedCells
-                    $scope.p7 = data
-                return true
-
-
-        $scope.submitCellTimes = () ->
-
-          timepoints = ['e12','e14','e16','e18','p0','p7']
-
-          Restangular.all('submissions').all('submit').customGET("", gene: $scope.gene, timepoints: timepoints)
-          .then (expressions) ->
-
-            cellExpressions = {}
-            cellExpressions['timepoints'] = []
-            cellExpressions['data'] = []
-            for data in expressions.data.data
-              cellExpressions.gene = data.gene
-              cellExpressions.celltype = $scope.celltype
-              cellExpressions.timepoints.push(data.timePoint)
-              cell_count = 0
-              for cell in data.cellTypes
-                if cell == $scope.celltype
-                  cellExpressions.data.push(Number(data.data[cell_count]))
-                cell_count++
-
-            $scope.getCells = () ->
-              $scope.cellExpressions = cellExpressions
-              return true
+        # Retrieve the expression results
+        $scope.submit = () ->
+          if $scope.gene != null && $scope.gene != undefined
+            Restangular.all('submissions').all('submit').customGET("", gene: $scope.gene, timepoints: $scope.timepointsArray)
+            .then (expressions) ->
+              $scope.getAllCells(expressions)
+              $scope.getCellTimes(expressions)
+            .catch (err) ->
+              console.log(err)
