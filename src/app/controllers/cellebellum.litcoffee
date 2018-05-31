@@ -50,11 +50,6 @@
           { name:'p7', selected: true }
         ]
 
-        # Select and deselect all timepoints
-        $scope.updateAllTimepoints = (selected) ->
-          for timepoint in $scope.timepoints
-            timepoint.selected = selected
-
         $scope.celltypes = [
           { name:'Astrocytes', selected: true }
           { name:'DCN precursors', selected: false }
@@ -136,3 +131,25 @@
               $scope.getCellTimes(expressions)
             .catch (err) ->
               console.log(err)
+
+        $scope.getSelectedTimepointCount = () ->
+          count = 0
+          for timepoint in $scope.timepoints
+            if timepoint.selected == true
+              count++
+          return count
+
+        $scope.isChecked = () ->
+          return $scope.getSelectedTimepointCount() == $scope.timepoints.length
+
+        $scope.isIndeterminate = () ->
+          return $scope.getSelectedTimepointCount() != $scope.timepoints.length
+
+        # Toggle selected timepoints
+        $scope.toggleTimepoints = () ->
+          if $scope.isChecked()
+            for timepoint in $scope.timepoints
+              timepoint.selected = false
+          else
+            for timepoint in $scope.timepoints
+              timepoint.selected = true

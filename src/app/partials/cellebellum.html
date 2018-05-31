@@ -29,9 +29,16 @@
         <label ng-repeat="timepoint in timepoints">
           <md-checkbox type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}</md-checkbox><span style="margin:20px"></span>
         </label>
+        <label>
+          <md-checkbox aria-label="Select All"
+                         ng-checked="isChecked()"
+                         md-indeterminate="isIndeterminate()"
+                         ng-click="toggleTimepoints()">
+            </md-checkbox>
+            <span ng-if="isChecked()">Deselect All</span>
+            <span ng-if="!isChecked()">Select All</span>
+        </label>
         <br>
-        <md-button class="md-raised" ng-click="updateAllTimepoints(true)">Select All</md-button>
-        <md-button class="md-raised" ng-click="updateAllTimepoints(false)">Deselect All</md-button>
       </div>
     </div>
 
