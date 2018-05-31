@@ -36,7 +36,7 @@
         ]
 
         # Set default selected method
-        $scope.selectedMethod = $scope.methods[1]
+        $scope.selectedMethod = $scope.methods[0]
 
         $scope.timepoints = [
           { name:'e12', selected: true }
@@ -123,7 +123,6 @@
           # Seems like there is an issue with cell type naming
 
           $scope.cellExpressions = $scope.expressionData[$scope.celltypes[0].name]
-
 
         # Retrieve the expression results
         $scope.submit = () ->
