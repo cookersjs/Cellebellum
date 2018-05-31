@@ -107,4 +107,4 @@
       .config Array 'RestangularProvider', (RestangularProvider) ->
         RestangularProvider.setBaseUrl window.__env.apiUrl
         RestangularProvider.setFullResponse true
-        RestangularProvider.setDefaultHttpFields withCredentials: true
+        RestangularProvider.setDefaultHttpFields withCredentials: false

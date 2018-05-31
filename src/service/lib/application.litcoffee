@@ -67,7 +67,7 @@ Add the middlewares.
 Use CORS
 
     allowCrossDomain = (req, res, next) ->
-      res.header 'Access-Control-Allow-Credentials',  true
+      res.header 'Access-Control-Allow-Credentials',  false
       res.header 'Access-Control-Allow-Origin',       config["cors"]["allowedUrl"]
       res.header 'Access-Control-Allow-Methods',      'GET,PUT,POST,DELETE,OPTIONS'
       res.header 'Access-Control-Allow-Headers',      'Origin, X-Requested-With, X-AUTHENTICATION, X-IP, Content-Type, Accept, authorization'
