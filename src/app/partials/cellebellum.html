@@ -1,8 +1,8 @@
-<div class="row" style="text-align:center">
-  <!-- Form for submitting queries -->
-  <div id="formSection">
+<div style="text-align:center; background-color: #fff">
+  <div class="row">
+    <!-- Form for submitting queries -->
     <form>
-      <div class="row">
+      <div class="row" style="margin:0px;">
         <div class="jumbotron">
           <div class="container">
             <div class="col-md-4 col-md-offset-4 col-xs-12">
@@ -16,6 +16,7 @@
       </div>
     </form>
 
+    <!-- Select the method for chart generation -->
     <div class="row">
       <div class="col-md-4 col-md-offset-4 col-xs-12">
         <select class="form-control" ng-model="selectedMethod" ng-options="method.type for method in methods"></select>
@@ -43,7 +44,7 @@
     </div>
 
     <!-- Cell type selection -->
-    <div ng-show="selectedMethod.value=='1'"  class="row">
+    <div ng-show="selectedMethod.value=='1'">
       <div class="text-left">
         <div class="text-center">
           <p id="instructions"><b>View Cell Type:</b></p>
@@ -53,20 +54,20 @@
         </span>
       </div>
     </div>
-  </div>
 
-  <!-- Section for displaying results of query -->
-  <div id="queryResults" class="row">
-    <!-- Display expression charts -->
-    <div id="expressionCharts" ng-show="selectedMethod.value == 0">
-      <span ng-repeat="timepoint in timepointsArray">
-        <div ng-show="timepoints[$index].selected" class="bare-chart" celle-bar-chart expr="timepointsData[timepoint]"></div>
-      </span>
-    </div>
+    <!-- Section for displaying results of query -->
+    <div>
+      <!-- Display expression charts -->
+      <div ng-show="selectedMethod.value == 0">
+        <span ng-repeat="timepoint in timepointsArray">
+          <div ng-show="timepoints[$index].selected && timepointsData[timepoint]" class="col-xs-12 col-sm-6" celle-bar-chart expr="timepointsData[timepoint]"></div>
+        </span>
+      </div>
 
-    <!-- Display cell line chart -->
-    <div ng-show="selectedMethod.value == 1">
-      <div id="lineChart" class="row" style="margin:50px;" celle-line-chart cellexpressions="cellExpressions"></div>
+      <!-- Display cell line chart -->
+      <div ng-show="selectedMethod.value == 1">
+        <div id="lineChart" class="col-sm-12" celle-line-chart cellexpressions="cellExpressions"></div>
+      </div>
     </div>
   </div>
 </div>
