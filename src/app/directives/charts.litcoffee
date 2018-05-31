@@ -72,14 +72,14 @@
         restrict: "A"
         replace: true
         transclude: true
-        scope: false
+        scope: { cellexpressions: "=" }
         template: '<div><canvas id="line" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
         link: (scope, iElement, iAttrs) ->
-          scope.$watch 'cellExpressions', (cellExpressions) ->
+          scope.$watch 'cellexpressions', (cellExpressions) ->
             if cellExpressions && cellExpressions.data != undefined
               scope.expressCelltypes = cellExpressions.data
               scope.celltypesLabels = cellExpressions.timepoints
-              updatedCell = cellExpressions.celltype.replace("_", " ")
+              updatedCell = cellExpressions.celltype
               title = cellExpressions.gene + " expression in " + updatedCell
               scope.celltypesOptions = {
                 responsive: true,
