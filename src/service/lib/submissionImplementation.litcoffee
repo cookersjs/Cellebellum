@@ -63,8 +63,9 @@ Queries Mongo and gets the matching gene data back, if any.
       MongoClient.connect mongoUrl, (err, db) ->
         db.collection 'cellebellum', (err, cellebellum) ->
           cellebellum.findOne {geneSymbol: gene}, (err, result) ->
+            console.log result
             if result == null
-              res.status(404).send
+              res.status(404).send "Gene not found in DB"
             else
               expressionTimes = []
               for time in timepoints

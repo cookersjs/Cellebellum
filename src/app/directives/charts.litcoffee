@@ -41,6 +41,7 @@
               scope.labels = expr.cellTypes
               scope.points = expr.data
               title = expr.gene + " Expression: " + expr.timePoint
+              scope.barColors = [ "#cc0000","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000", "#20B2AA"]
               scope.options = {
                 responsive: true,
                 maintainAspectRatio: true,
@@ -63,7 +64,6 @@
                   }]
                 }
               }
-              scope.barColors = scope.barChartColors
               return scope
 
 

@@ -83,8 +83,6 @@
         if !$scope.removal
           $scope.removal = 0
 
-        $scope.barChartColors = [ "#cc0000","#3cb44b","#ffe119","#0082c8","#f58231","#911eb4","#008080","#aa6e28","#e6beff","#808080","#46f0f0","#800000","#000000","#f032e6","#808000", "#20B2AA"]
-
         # Change selected cell type, update the graph
         $scope.selectCelltype = (value) ->
           $scope.celltype = value
@@ -129,6 +127,7 @@
 
         # Retrieve the expression results
         $scope.submit = () ->
+          $scope.errorState = false
           if $scope.gene != null && $scope.gene != undefined
             Restangular.all('submissions').all('submit').customGET("", gene: $scope.gene, timepoints: $scope.timepointsArray)
             .then (expressions) ->
@@ -136,3 +135,4 @@
               $scope.getCellTimes(expressions)
             .catch (err) ->
               console.log(err)
+              $scope.errorState = true
