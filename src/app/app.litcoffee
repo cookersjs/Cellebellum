@@ -28,6 +28,12 @@
     require 'angular-route'
     require 'restangular'
 
+# Angular material package
+    require 'angular-material'
+    require 'angular-animate'
+    require 'angular-aria'
+    require '../../node_modules/angular-material/angular-material.css'
+
 # Datatables stuff. Ugh, I don't like this but I don't see a better solution for now.
 
     jQuery.fn.dataTableExt = require 'datatables.net'
@@ -48,6 +54,10 @@
 
     require 'services/genomics'
 
+# Import chart.js
+    require '../../node_modules/chart.js/dist/Chart.min.js'
+    require '../../node_modules/angular-chart.js/dist/angular-chart.min.js'
+
 # Then all of the partials
 
     CellebellumPartial = require 'cellebellum.html'
@@ -64,6 +74,10 @@
         'cellebellum.directives.charts'
         'cellebellum.services.genomics'
         '720kb.tooltips'
+        'chart.js'
+        'ngMaterial'
+        'ngAnimate'
+        'ngAria'
       ]
 
 

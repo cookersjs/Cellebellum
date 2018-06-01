@@ -65,11 +65,8 @@ A log message to show that the submission service has been started.
     logger.info("Initializing submission service")
 
     # Run a submission
-    router.post '/submit', submission.queryMongo
+    router.get '/submit', submission.queryMongo
 
 Finally, return the router for embedding in the application.
 
     module.exports = router
-
-    testFunction = () ->
-      console.log "test function!"

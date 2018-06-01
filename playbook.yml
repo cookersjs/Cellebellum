@@ -1,0 +1,56 @@
+---
+
+- hosts: localhost
+  connection: local
+
+  roles:
+    - {
+        role: "local-webapp",
+        image_name: "webapp",
+        webpack: "webpack/webpack.js",
+        tags: [ "webapp" ],
+      }
+
+    - {
+        role: "local-image",
+        image_name: "mongo",
+        tags: [ "mongo" ]
+      }
+
+- hosts: all
+  become: true
+#
+  roles:
+#     - {
+#         role: "setup",
+#         path: "/usr/lib/cellebellum",
+#         tags: [ "setup" ],
+#         become_method: sudo
+#       }
+#
+    - {
+        role: "data",
+        tags: [ "setup", "data" ],
+        become_method: sudo
+      }
+
+    - {
+        role: "initialize",
+        tags: [ "setup", "deploy" ],
+        become_method: sudo
+      }
+
+    - {
+      role: "startup",
+      compose_file: "production-compose.yml",
+      tags: [ "setup", "deploy" ],
+      become_method: sudo
+      }
+
+# - hosts: localhost
+#   tasks:
+#   - name: remove local deployment containers
+#     file:
+#       path: ./dist/build/*_production
+#       state: absent
+#     tags: [ "setup", "service", "cleanup" ]

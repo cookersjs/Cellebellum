@@ -28,135 +28,117 @@
 
 # Directive pertaining to chart generation for Cellebellum
 
-
-    .directive 'cellebellumExpressionChart', () ->
+    .directive 'celleBarChart', () ->
       result =
         restrict: "A"
         replace: true
         transclude: true
-        scope: false
-        template: '<svg width="1250" height="500"></div>'
+        scope: { expr: "=" }
+        template: '<div class="white"><canvas class="chart chart-bar" chart-data="points" chart-labels="labels" chart-options="options" chart-colors="barColors"></canvas></div>'
         link: (scope, iElement, iAttrs) ->
-          scope.$watch 'expression.data', (expressions) ->
-            if expressions
-              names = expressions.data['cellTypes']
-              values = expressions.data['data']
-              gene = expressions.data['gene']
-
-              display = jQuery(iElement)
-              element = display.get()[0]
-
-              # colour = d3.scaleOrdinal(d3.schemeCategory20)
-
-              svg = d3.select(element)
-              margin = 200
-              width = svg.attr("width") - margin
-              height = svg.attr("height") - margin
-
-              svg.append('text')
-                .attr('transform', 'translate(100, 0)')
-                .attr('x', 350)
-                .attr('y', 50)
-                .attr('font-size', '24px')
-                .attr('font-weight', 'bold')
-                .text(gene + ' Expression')
-
-              xScale = d3.scaleBand()
-                .range([0, width - 180])
-                .padding(0.4)
-
-              yScale = d3.scaleLinear()
-                .range([height, 0])
-
-              g = svg.append('g')
-                .attr('transform', 'translate(' + 100 + ',' + 100 + ')')
-
-              xScale.domain names.map((d) -> d)
-              yScale.domain [ 0, d3.max(values, (d) -> d + 6)]
-
-              g.append('g')
-                .attr('transform', 'translate(0,' + height + ')')
-                .call(d3.axisBottom(xScale))
+          scope.$watch 'expr', (expr) ->
+            if expr
+              scope.labels = expr.cellTypes
+              scope.points = expr.data
+              title = expr.gene + " Expression: " + expr.timePoint
+              scope.options = {
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                  display: true,
+                  position: 'top',
+                  text: title
+                },
+                scales: {
+                  xAxes: [{
+                    ticks: {
+                      autoSkip: false
+                    }
+                  }],
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression'
+                    }
+                  }]
+                }
+              }
+              scope.barColors = scope.barChartColors
+              return scope
 
 
-              g.append('g')
-                .call d3.axisLeft(yScale).tickFormat((d) ->
-                 d
-                ).ticks(10)
-                .append('text')
-                .attr('y', 6)
-                .attr('dy', '0.71em')
-                .attr('text-anchor', 'end')
-                .text('value')
-
-              g.selectAll("rect")
-                .data(values)
-                .enter().append("rect")
-                  .attr("class", "bar")
-                  .attr("height", (d, i) -> height - yScale(d))
-                  .attr("width", "30")
-                  .attr("x", (d, i) -> i * 60 + 30)
-                  .attr("y", (d) -> yScale(d))
-
-
-
-              # svg.append("g")
-              #   .attr("transform", "translate(0," + height + ")")
-              #   .call(d3.axisBottom(svg))
-
-              # svg.selectAll("text")
-              #   .data(names)
-              #   .enter().append("text")
-              #   .text( (d) -> return d)
-              #     .attr("class", "text")
-              #     .attr("x", (d, i) -> i * 60 + 40)
-              #     .attr("y", (d, i) -> 315)
-              #     .attr("transform", "rotate(-16)")
-
-              #
-              # classes = (nodes) ->
-              #   result = []
-              #
-              #   setColour = (element) ->
-              #     return "#cccccc"
-              #
-              #   for element in nodes
-              #     color = setColour element
-              #     result.push
-              #       name: element.cellType
-              #       value: element.expressionValue
-              #       colour: "#ef0b0b"
-              #   output =
-              #     children: result
-              #
-              # pack = d3.pack()
-              #   .size([chartWidth, chartHeight])
-              #   .padding(1.5)
-              #
-              # root = d3.hierarchy(classes(expressions))
-              #   .sum((d) -> d.value)
-              #
-              # pack(root)
-              #
-              # nodes = svg.selectAll(".bubble")
-              #   .data(root.children)
-              #   .enter()
-              #   .append("g")
-              #   .attr("class", "bubble")
-              #   .attr("transform", (d) -> "translate(#{d.x},#{d.y})")
-              #
-              # nodes.append("title")
-              #   .text((d) -> d.data.name)
-              #
-              # links = nodes.append("a")
-              #     .attr("xlink:href", (d) -> "/")
-              #
-              # links.append("circle")
-              #   .attr("r", (d) -> d.r)
-              #   .style("fill", (d) -> d.data.colour)
-              #
-              # links.append("text")
-              #   .attr("dy", ".3em")
-              #   .style("text-anchor", "middle")
-              #   .style("font-size", (d) -> (d.r / 5).toString() + "px")
-              #   .text((d) -> d.data.name)
+    .directive 'celleLineChart', () ->
+      result =
+        restrict: "A"
+        replace: true
+        transclude: true
+        scope: { cellexpressions: "=" }
+        template: '<div class="white"><canvas id="line" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
+        link: (scope, iElement, iAttrs) ->
+          scope.$watch 'cellexpressions', (cellExpressions) ->
+            if cellExpressions && cellExpressions.data != undefined
+              scope.expressCelltypes = cellExpressions.data
+              scope.celltypesLabels = cellExpressions.timepoints
+              updatedCell = cellExpressions.celltype
+              title = cellExpressions.gene + " expression in " + updatedCell
+              scope.celltypesOptions = {
+                responsive: true,
+                maintainAspectRatio: true,
+                elements: {line: { fill: false }},
+                title: {
+                  display: true,
+                  position: 'top',
+                  text: title,
+                  fontSize: 18
+                }
+                scales: {
+                  yAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Normalized  Expression',
+                      fontSize: 18
+                    }
+                  }],
+                  xAxes: [{
+                    scaleLabel: {
+                      display:true,
+                      labelString: 'Timepoints',
+                      fontSize: 18
+                    }
+                  }]
+                },
+                tooltips: {
+                  callbacks: {
+                    # title: (tooltipItem, data) ->
+                    #   value = data.datasets[tooltipItem[0].datasetIndex].data[tooltipItem[0].index];
+                    #   console.log value
+                    #   return "Timepoint: " + value
+                    # ,
+                    label: (tooltipItem, data) ->
+                      value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                      if value == 0
+                        value = "0.00"
+                      return value
+                    # ,
+                    # afterLabel: (tooltipItem, data) ->
+                    #   value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    #   return "Segment "
+                  }
+                },
+                hover: {
+                  mode: 'nearest'
+                }
+              }
+            #   scope.colors = [{
+            #     backgroundColor : '#0062ff',
+            #     pointBackgroundColor: '#0062ff',
+            #     pointHoverBackgroundColor: '#0062ff',
+            #     borderColor: '#0062ff',
+            #     pointBorderColor: '#0062ff',
+            #     pointHoverBorderColor: '#0062ff',
+            #     fill: false
+            # }, '#00ADF9', '#FDB45C', '#46BFBD'];
+              # scope.celltypesColors = {
+              #   backgroundColor: 'transparent',
+              #   borderColor: '#F78511',
+            #   # }

@@ -51,34 +51,39 @@ Local Functions:
 
 Configure a new client
 
-    vepUrl = config.vep
-    circosUrl = config.circos
-    delegatorUrl = config.delegator
     mongoUrl = config.data.cellebellum.store.url
-
-    sharedVolume = '/data/cellebellumData/'
 
 Queries Mongo and gets the matching gene data back, if any.
 
-    module.exports.queryMongo = (req, res) ->
-      gene = req.body.gene
+    module.exports.queryMongo = (req, res, blank) ->
+      gene = req.query.gene
+      gene = gene.toLowerCase()
+      gene = gene.charAt(0).toUpperCase() + gene.slice(1)
+      timepoints = req.query.timepoints
       MongoClient.connect mongoUrl, (err, db) ->
         db.collection 'cellebellum', (err, cellebellum) ->
           cellebellum.findOne {geneSymbol: gene}, (err, result) ->
-            if err
+            if result == null
               res.status(404).send
             else
-              expressionData = {}
-              cellTypes = []
-              expressionValues = []
-              data = result.data
-              for item in result.data
-                keys = Object.keys(item)
-                key = keys[0];
-                cellTypes.push(key)
-                expressionValues.push(item[key])
-              expressionData['cellTypes'] = cellTypes
-              expressionData['data'] = expressionValues
-              expressionData['gene'] = gene
-              res.status(200).send data: expressionData
+              expressionTimes = []
+              for time in timepoints
+                if time == "null"
+                  continue
+                expressionData = {}
+                cellTypes = []
+                expressionValues = []
+                data = result.data[time]
+                if data != null && data != undefined
+                  for item in data
+                    keys = Object.keys(item)
+                    key = keys[0];
+                    cellTypes.push(key)
+                    expressionValues.push(item[key])
+                expressionData['timePoint'] = time
+                expressionData['gene'] = gene
+                expressionData['cellTypes'] = cellTypes
+                expressionData['data'] = expressionValues
+                expressionTimes.push(expressionData)
+              res.status(200).send data: expressionTimes
             db.close()

@@ -1,21 +1,80 @@
-<div class="container">
-  <div class="row-fluid">
-    <div class="tab-content">
-      <div class="tab-pane active" id="gene-frequencies-tab" style="text-align:center;">
-
-        <div class="row-fluid">
-        </div>
-        <div id="input" style="position:absolute;top:15%;left:40%;">
-          <div>
-            <input style="height:50px;width:300px;font-size:20pt;padding-left:15px;" placeholder="Type a Gene" ng-model="gene"></input>
+<div class="text-center white">
+  <!-- Form for submitting queries -->
+  <form>
+    <div class="row no-margin">
+      <div class="jumbotron">
+        <div class="container">
+          <div class="col-md-4 col-md-offset-4 col-xs-12">
+            <md-autocomplete md-selected-item="gene" md-search-text="searchText" md-items="item in matches"
+              md-item-text="item" md-min-length="1" md-match-case-insensitive="true" md-search-text-change="searchTextChange(searchText)"
+               md-select-on-match="true" md-select-on-focus="true">
+              <span md-highlight-text="searchText" md-highlight-flags="i">{{item}}</span>
+            </md-autocomplete>
           </div>
-          <div>
-            <button style="position:relative;top:15px;background-color:#555555;color:white;font-size:20px;height:40px;width:150px;" ng-click="submitGene()">Enter</button>
+          <div class="col-md-6 col-md-offset-3 col-xs-12">
+            <md-button id="submit" ng-click="submit()" type="submit" class="md-raised md-primary" ng-disabled="!gene">Submit</md-button>
           </div>
-          <br><br><br>
         </div>
-        <div style="position:relative;top:200px;left:25px;" cellebellum-expression-chart></div>
       </div>
+    </div>
+  </form>
+
+  <!-- Select the method for chart generation -->
+  <div class="row no-margin">
+    <h3 class="text-center">Select Method</h3>
+    <div class="col-md-4 col-md-offset-4 col-xs-12">
+      <md-input-container>
+        <md-select ng-model="selectedMethod" aria-label="select method">
+          <md-option ng-value="method" ng-repeat="method in methods">{{ method.type }}</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </div>
+
+  <!-- Time points selection -->
+  <div ng-show="selectedMethod.value=='0'" class="row only-bottom-margin">
+    <h3 class="text-center">Time Points</h3>
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
+      <label ng-repeat="timepoint in timepoints">
+        <md-checkbox type="checkbox" value="{{timepoint}}" ng-model="timepoint.selected"> {{timepoint.name}}</md-checkbox><span style="margin:20px"></span>
+      </label>
+      <label>
+        <md-checkbox aria-label="Select All"
+                       ng-checked="isChecked()"
+                       md-indeterminate="isIndeterminate()"
+                       ng-click="toggleTimepoints()">
+          </md-checkbox>
+          <span ng-if="isChecked()">Deselect All</span>
+          <span ng-if="!isChecked()">Select All</span>
+      </label>
+      <br>
+    </div>
+  </div>
+
+  <!-- Cell type selection -->
+  <div ng-show="selectedMethod.value=='1'" class="row only-bottom-margin">
+    <h3 class="text-center">Select Cell Type</h3>
+    <span class="col-md-4 col-md-offset-4 col-xs-12">
+      <md-input-container>
+        <md-select ng-model="selectedCellType" ng-change="selectCelltype(selectedCellType)" aria-label="select cell type">
+          <md-option ng-value="celltype" ng-repeat="celltype in celltypes">{{ celltype.name }}</md-option>
+        </md-select>
+      </md-input-container>
+    </span>
+  </div>
+
+  <!-- Section for displaying results of query -->
+  <div>
+    <!-- Display expression charts -->
+    <div ng-show="selectedMethod.value == 0">
+      <span ng-repeat="timepoint in timepointsArray">
+        <div ng-show="timepoints[$index].selected && timepointsData[timepoint]" class="col-xs-12 col-sm-6" celle-bar-chart expr="timepointsData[timepoint]"></div>
+      </span>
+    </div>
+
+    <!-- Display cell line chart -->
+    <div ng-show="selectedMethod.value == 1">
+      <div id="lineChart" class="col-sm-12" celle-line-chart cellexpressions="cellExpressions"></div>
     </div>
   </div>
 </div>

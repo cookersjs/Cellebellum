@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  # Set up the database
+  mongo:
+    build:
+        context: mongo/singleton
+    image: mongo
+    container_name: mongo
+    volumes:
+      - ./data/mongo/singleton:/data/
+    tty: true
+    ports:
+      - 27017:27017
+    restart: always
+    command: mongod --storageEngine wiredTiger
