@@ -16,27 +16,13 @@
 
 #geneForm {
   height:50px;
-  // width:300px;
   font-size:20pt;
   padding-left:15px;
   margin-bottom: 15px;
 }
 
-#instructions {
-  padding-top:10px;
-  font-size:20px;
-  color:#606060;
-}
-
-#celltypesList {
-  display:block;
-  position:
-  relative;left:60px;
-}
-
-#celltypesRadio {
-  float:left;
-  margin-right:20px;
+#lineChart {
+  margin-bottom: 10px;
 }
 
 .navbar{
@@ -46,4 +32,20 @@
 
 md-checkbox.md-checked .md-icon {
   background-color: #033163 !important;
+}
+
+.no-margin {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.only-bottom-margin {
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 15px;
+}
+
+.white {
+  background-color: #fff;
 }

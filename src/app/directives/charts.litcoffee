@@ -34,7 +34,7 @@
         replace: true
         transclude: true
         scope: { expr: "=" }
-        template: '<div><canvas class="chart chart-bar" chart-data="points" chart-labels="labels" chart-options="options" chart-colors="barColors"></canvas></div>'
+        template: '<div class="white"><canvas class="chart chart-bar" chart-data="points" chart-labels="labels" chart-options="options" chart-colors="barColors"></canvas></div>'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'expr', (expr) ->
             if expr
@@ -73,7 +73,7 @@
         replace: true
         transclude: true
         scope: { cellexpressions: "=" }
-        template: '<div><canvas id="line" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
+        template: '<div class="white"><canvas id="line" class="chart chart-line" chart-data="expressCelltypes" chart-labels="celltypesLabels" chart-options="celltypesOptions" chart-hover="lineHover"></canvas></div>'
         link: (scope, iElement, iAttrs) ->
           scope.$watch 'cellexpressions', (cellExpressions) ->
             if cellExpressions && cellExpressions.data != undefined
