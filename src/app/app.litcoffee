@@ -61,6 +61,7 @@
 # Then all of the partials
 
     CellebellumPartial = require 'cellebellum.html'
+    AboutPartial = require 'about.html'
     ErrorPartial = require '404.html'
 
 # Define the main app
@@ -98,6 +99,7 @@
         }
 
         $routeProvider.when "/",                               {template: CellebellumPartial, controller: "CellebellumController"}
+        $routeProvider.when "/about",                          {template: AboutPartial}
         $routeProvider.when "/404",                            {template: ErrorPartial}
         $routeProvider.otherwise {redirectTo: "/404"}
 
